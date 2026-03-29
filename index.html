@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+6<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -151,7 +151,7 @@
     <div class="flex items-center gap-2 mt-2.5">
       <span class="font-mono text-2xs font-bold text-teal-600 bg-teal-50 border border-teal-100 px-2 py-0.5 rounded-md tracking-wider">30762</span>
       <span class="text-slate-300">·</span>
-      <span class="text-slate-500 text-xs font-semibold tracking-widest uppercase">Boots Oasis</span>
+      <span class="text-slate-500 text-xs font-semibold tracking-widest uppercase">Boots T3</span>
       <span class="ml-auto inline-flex items-center gap-1 text-2xs text-emerald-600 font-bold">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Online
       </span>
@@ -237,7 +237,7 @@
       <div class="p-4 space-y-4">
         <div>
           <h1 class="text-2xl font-extrabold text-slate-800 tracking-tighter leading-tight">Expiry <span class="text-teal-500">Report</span></h1>
-          <p class="text-xs text-slate-400 mt-0.5 font-medium">Boots Oasis · Store 30762 · Dubai</p>
+          <p class="text-xs text-slate-400 mt-0.5 font-medium">Boots T3 · Store 30762 · Dubai</p>
         </div>
         <div class="grid grid-cols-2 gap-2.5">
           <div class="col-span-2 bg-teal-500 rounded-2xl p-4 flex items-center justify-between" style="box-shadow:var(--shadow-teal)">
@@ -476,7 +476,7 @@
       <div class="w-9 h-9 bg-teal-500 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style="box-shadow:var(--shadow-teal)">💊</div>
       <div>
         <div class="text-sm font-bold text-slate-800">PharmaScan Pro</div>
-        <div class="text-xs text-slate-400 font-medium" id="menuStoreInfo">Store 30762 · Boots Oasis</div>
+        <div class="text-xs text-slate-400 font-medium" id="menuStoreInfo">Store 30762 · Boots T3</div>
       </div>
     </div>
   </div>
@@ -520,7 +520,7 @@
 
 <script>
 'use strict';
-const CONFIG={storeNo:30762,storeName:'BOOTS OASIS',pin:'9633',dbName:'pharmascan_db',dbVersion:6,exportFilename:'boots-oasis',apiEnabled:true};
+const CONFIG={storeNo:30762,storeName:'BOOTS T3',pin:'9633',dbName:'pharmascan_db',dbVersion:6,exportFilename:'boots-T3',apiEnabled:true};
 let state={history:[],master:[],masterIndex:new Map(),filter:'all',searchQuery:'',pendingBarcode:null,pendingGs1:null,pinCallback:null,pinBuffer:'',uploadMode:'replace',uploadData:null,selectedRemarks:'',cameraStream:null,scanDebounce:null};
 let db=null;
 async function initDB(){return new Promise((res,rej)=>{const r=indexedDB.open(CONFIG.dbName,CONFIG.dbVersion);r.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('history')){const hs=d.createObjectStore('history',{keyPath:'id'});hs.createIndex('gtin14','gtin14',{unique:false});hs.createIndex('gtin14_batch',['gtin14','batch'],{unique:false});hs.createIndex('expiry','expiry',{unique:false});}if(!d.objectStoreNames.contains('master')){const ms=d.createObjectStore('master',{keyPath:'id'});ms.createIndex('gtin14','gtin14',{unique:false});ms.createIndex('last8','last8',{unique:false});}if(!d.objectStoreNames.contains('config'))d.createObjectStore('config');};r.onsuccess=e=>{db=e.target.result;res();};r.onerror=rej;});}
@@ -621,7 +621,7 @@ function initEvents(){
 }
 async function loadDemo(){if(state.history.length>0)return;const demos=[{d:'EDYST TAB 20MG 4S',g:'6297001031292',e:'2026-01',b:'BG24025A',q:2,r:'REMOVED'},{d:'HYALO4 SKIN CREAM 25GM',g:'8033661802548',e:'2026-01',b:'G04620',q:2,r:''},{d:'SNAFI 20MG TABLETS 4S',g:'965013700267',e:'2026-01',b:'1144996',q:3,r:'SOLD'},{d:'EUCARBON TABLETS 100S',g:'80336618025',e:'2026-02',b:'3G5W',q:1,r:''},{d:'SONGHA NIGHT 30 CAPS',g:'7610939003428',e:'2026-02',b:'R0078701',q:2,r:''},{d:'ACCUCHECK GUIDE STRIPS 50S',g:'5903163603246',e:'2026-03',b:'124040910',q:1,r:''},{d:'VOLTAREN TOPICAL GEL 100GM',g:'6291109120759',e:'2026-06',b:'D73A',q:4,r:''},{d:'BIONIKA CARDIOLL 5G SACHETS',g:'5319991382398',e:'2026-04',b:'123924',q:2,r:'SOLD'},{d:'QUESTD VITAMIN D3 5000IU 60S',g:'688591124505',e:'2026-01',b:'BG24025A',q:1,r:'SOLD'},{d:'ZELLER REDORMIN FORTE 30S',g:'7640144122751',e:'2026-05',b:'231001',q:3,r:''}];for(const x of demos){const g=toG14(x.g);await saveItem({id:crypto.randomUUID(),gtin14:g,gtin13:toG13(g),barcode:g,rms:x.g,description:x.d,quantity:x.q,expiry:x.e,batch:x.b,locationNo:CONFIG.storeNo,locationName:CONFIG.storeName,remarks:x.r,matchType:'EXACT',gs1Raw:x.g,scanTimestamp:new Date().toISOString(),editTimestamp:null});}}
 function initSW(){if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});}
-async function init(){try{await initDB();state.master=await dbGetAll('master');buildMasterIndex();await loadHistory();await loadDemo();initEvents();initSW();showToast('PharmaScan Pro ready · Boots Oasis','info');}catch(err){console.error(err);showToast('Startup error','error');}}
+async function init(){try{await initDB();state.master=await dbGetAll('master');buildMasterIndex();await loadHistory();await loadDemo();initEvents();initSW();showToast('PharmaScan Pro ready · Boots T3','info');}catch(err){console.error(err);showToast('Startup error','error');}}
 init();
 </script>
 </body>
