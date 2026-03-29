@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#00d4aa">
+  <meta name="description" content="PharmaScan Pro — Boots Oasis Expiry Tracker">
+  <title>PharmaScan Pro</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       CSS CUSTOM PROPERTIES — BOOTS OASIS THEME
+    ═══════════════════════════════════════════════════════════ */
+    :root {
+      --bg-primary: #080f0e;
+      --bg-secondary: #0d1a18;
+      --bg-card: #111e1c;
+      --bg-elevated: #162421;
+      --bg-input: #0d1a18;
+      --bg-sheet: #0f1c1a;
+
+      --accent: #00d4aa;
+      --accent-dim: rgba(0,212,170,0.15);
+      --accent-glow: 0 0 20px rgba(0,212,170,0.3);
+
+      --danger: #ef4444;
+      --danger-dim: rgba(239,68,68,0.15);
+      --warning: #f59e0b;
+      --warning-dim: rgba(245,158,11,0.15);
+      --success: #10b981;
+      --success-dim: rgba(16,185,129,0.15);
+      --muted: #6b7280;
+      --muted-dim: rgba(107,114,128,0.15);
+
+      --text-primary: #e8f4f2;
+      --text-secondary: #8ba5a0;
+      --text-muted: #4a6b65;
+
+      --border: rgba(255,255,255,0.06);
+      --border-accent: rgba(0,212,170,0.3);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+
+      --font-ui: 'Outfit', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+
+      --nav-height: 64px;
+      --header-height: 80px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ui);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100dvh;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    button { font-family: var(--font-ui); border: none; cursor: pointer; background: none; }
+    input { font-family: var(--font-ui); border: none; outline: none; background: none; }
+
+    /* ═══════════════════════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════════════════════ */
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════════════════════ */
+    .header {
+      flex-shrink: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px 10px;
+      z-index: 100;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #00d4aa 0%, #00a88a 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: var(--accent-glow);
+    }
+    .logo-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+    .logo-version {
+      font-size: 10px;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      background: var(--accent-dim);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .header-actions {
+      display: flex;
+      gap: 4px;
+    }
+    .hdr-btn {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      transition: background 0.15s;
+    }
+    .hdr-btn:active { background: var(--bg-elevated); }
+
+    .store-badge {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .store-no {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .store-name {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .store-dot { color: var(--text-muted); font-size: 8px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       MAIN CONTENT (scrollable pages)
+    ═══════════════════════════════════════════════════════════ */
+    .pages {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .page {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+      display: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .page.active { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════
+       BOTTOM NAV
+    ═══════════════════════════════════════════════════════════ */
+    .bottom-nav {
+      flex-shrink: 0;
+      height: calc(var(--nav-height) + var(--safe-bottom));
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      padding-top: 6px;
+      padding-bottom: var(--safe-bottom);
+      z-index: 100;
+    }
+    .nav-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 0;
+      transition: opacity 0.15s;
+    }
+    .nav-icon {
+      font-size: 20px;
+      line-height: 1;
+      filter: grayscale(1) opacity(0.5);
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .nav-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-tab.active .nav-icon { filter: none; transform: scale(1.1); }
+    .nav-tab.active .nav-label { color: var(--accent); }
+    .nav-tab:active { opacity: 0.7; }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: SCAN
+    ═══════════════════════════════════════════════════════════ */
+    .scan-page { padding: 16px; }
+
+    .scan-input-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .scan-input-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .barcode-input-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0 12px;
+      gap: 8px;
+      transition: border-color 0.2s;
+    }
+    .barcode-input-wrap:focus-within {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 3px rgba(0,212,170,0.1);
+    }
+    .barcode-input-wrap span { font-size: 18px; opacity: 0.4; }
+    .barcode-input {
+      flex: 1;
+      height: 48px;
+      font-size: 15px;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+      caret-color: var(--accent);
+    }
+    .barcode-input::placeholder { color: var(--text-muted); font-family: var(--font-ui); font-size: 13px; }
+
+    .scan-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .scan-btn {
+      height: 48px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.12s, opacity 0.12s;
+    }
+    .scan-btn:active { transform: scale(0.96); opacity: 0.8; }
+    .scan-btn.primary {
+      background: var(--accent);
+      color: #080f0e;
+    }
+    .scan-btn.secondary {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .stat-box.warn .stat-val { color: var(--warning); }
+    .stat-box.danger .stat-val { color: var(--danger); }
+
+    /* Recent scans section */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .section-action {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HISTORY CARD
+    ═══════════════════════════════════════════════════════════ */
+    .history-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .hist-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .hist-card:active { border-color: var(--border-accent); }
+    .hist-status-bar {
+      width: 4px;
+      flex-shrink: 0;
+      background: var(--muted);
+    }
+    .hist-status-bar.good { background: var(--success); }
+    .hist-status-bar.warn { background: var(--warning); }
+    .hist-status-bar.expired { background: var(--danger); }
+
+    .hist-body { flex: 1; padding: 12px 10px; min-width: 0; }
+
+    .hist-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .hist-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .hist-name.expired-text {
+      color: var(--danger);
+      text-decoration: line-through;
+    }
+    .hist-name.warn-text { color: var(--warning); }
+    .hist-name.good-text { color: var(--success); }
+
+    .hist-qty {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .hist-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .hist-meta-item {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+    .hist-meta-item span { color: var(--text-secondary); }
+
+    .hist-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .remarks-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .remarks-badge.sold { background: var(--success-dim); color: var(--success); }
+    .remarks-badge.removed { background: var(--danger-dim); color: var(--danger); }
+    .remarks-badge.pending { background: var(--muted-dim); color: var(--muted); }
+
+    .hist-actions-btn {
+      font-size: 18px;
+      color: var(--text-muted);
+      padding: 4px 6px;
+      border-radius: 6px;
+    }
+    .hist-actions-btn:active { background: var(--bg-elevated); }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: HISTORY
+    ═══════════════════════════════════════════════════════════ */
+    .history-page { padding: 16px; }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0 12px;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .search-bar:focus-within { border-color: var(--border-accent); }
+    .search-icon { font-size: 16px; opacity: 0.4; }
+    .search-input {
+      flex: 1;
+      height: 44px;
+      font-size: 14px;
+      color: var(--text-primary);
+      caret-color: var(--accent);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-clear {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 4px;
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin-bottom: 14px;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .filter-chips::-webkit-scrollbar { display: none; }
+    .chip {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: var(--bg-card);
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+    }
+    .chip.active {
+      background: var(--accent-dim);
+      border-color: var(--border-accent);
+      color: var(--accent);
+    }
+    .chip:active { transform: scale(0.95); }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-muted);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-text { font-size: 14px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: DASHBOARD
+    ═══════════════════════════════════════════════════════════ */
+    .dashboard-page { padding: 16px; }
+
+    .dash-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .dash-title span { color: var(--accent); }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .dash-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .dash-card.full { grid-column: 1 / -1; }
+    .dash-card-val {
+      font-size: 32px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .dash-card-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .dash-card.accent-card { border-color: var(--border-accent); background: var(--accent-dim); }
+    .dash-card.accent-card .dash-card-val { color: var(--accent); }
+    .dash-card.warn-card { border-color: rgba(245,158,11,0.3); background: var(--warning-dim); }
+    .dash-card.warn-card .dash-card-val { color: var(--warning); }
+    .dash-card.danger-card { border-color: rgba(239,68,68,0.3); background: var(--danger-dim); }
+    .dash-card.danger-card .dash-card-val { color: var(--danger); }
+
+    .month-breakdown {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .month-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .month-row:last-child { border-bottom: none; }
+    .month-lbl {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      width: 56px;
+      flex-shrink: 0;
+    }
+    .month-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-elevated);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .month-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--accent);
+      transition: width 0.6s ease;
+    }
+    .month-count {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      width: 24px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .status-breakdown {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+    }
+    .status-row-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .status-row-val {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .export-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .export-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .export-btn {
+      height: 44px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
+      transition: all 0.15s;
+    }
+    .export-btn.primary-export {
+      background: var(--accent);
+      color: #080f0e;
+      border-color: var(--accent);
+      grid-column: 1 / -1;
+    }
+    .export-btn:active { transform: scale(0.97); }
+
+    /* ═══════════════════════════════════════════════════════════
+       OVERLAY + BOTTOM SHEETS
+    ═══════════════════════════════════════════════════════════ */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
+
+    .sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-sheet);
+      border-top: 1px solid var(--border);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      z-index: 300;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      max-height: 92dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    .sheet.open { transform: translateY(0); }
+
+    .sheet-handle-bar {
+      width: 36px; height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+      margin: 12px auto 0;
+      flex-shrink: 0;
+    }
+    .sheet-header {
+      padding: 12px 20px 8px;
+      flex-shrink: 0;
+    }
+    .sheet-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .sheet-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .sheet-body {
+      overflow-y: auto;
+      flex: 1;
+      padding: 8px 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sheet-footer {
+      display: flex;
+      gap: 10px;
+      padding: 12px 20px;
+      padding-bottom: calc(12px + var(--safe-bottom));
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .sheet-btn {
+      flex: 1;
+      height: 48px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.12s;
+    }
+    .sheet-btn:active { transform: scale(0.97); }
+    .sheet-btn.cancel {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+    }
+    .sheet-btn.confirm {
+      background: var(--accent);
+      color: #080f0e;
+    }
+    .sheet-btn.danger-btn {
+      background: var(--danger-dim);
+      color: var(--danger);
+      border: 1px solid rgba(239,68,68,0.3);
+    }
+
+    /* Form elements */
+    .form-group { margin-bottom: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .form-label .auto-tag {
+      font-size: 9px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+      padding: 1px 5px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+    }
+    .form-input {
+      width: 100%;
+      height: 44px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0 12px;
+      font-size: 15px;
+      color: var(--text-primary);
+      caret-color: var(--accent);
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--border-accent); box-shadow: 0 0 0 3px rgba(0,212,170,0.08); }
+    .form-input::placeholder { color: var(--text-muted); font-size: 13px; }
+    .form-input.mono { font-family: var(--font-mono); }
+
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .qty-btn {
+      width: 44px; height: 44px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 22px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.12s;
+    }
+    .qty-btn:active { background: var(--accent-dim); color: var(--accent); transform: scale(0.93); }
+    .qty-input {
+      flex: 1;
+      height: 44px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+
+    /* Product display in sheet */
+    .product-display {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    .product-name-display {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .product-codes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .code-chip {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .code-chip.gtin { border-color: var(--border-accent); color: var(--accent); }
+    .match-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .match-exact { background: var(--success-dim); color: var(--success); }
+    .match-api { background: rgba(139,92,246,0.15); color: #a78bfa; }
+    .match-manual { background: var(--muted-dim); color: var(--muted); }
+
+    /* Remarks selector */
+    .remarks-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .remarks-opt {
+      height: 40px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .remarks-opt.active-sold { background: var(--success-dim); border-color: rgba(16,185,129,0.4); color: var(--success); }
+    .remarks-opt.active-removed { background: var(--danger-dim); border-color: rgba(239,68,68,0.4); color: var(--danger); }
+    .remarks-opt.active-pending { background: var(--muted-dim); border-color: rgba(107,114,128,0.4); color: var(--muted); }
+    .remarks-opt:active { transform: scale(0.96); }
+
+    /* ═══════════════════════════════════════════════════════════
+       CAMERA VIEW
+    ═══════════════════════════════════════════════════════════ */
+    .camera-view {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 500;
+      display: none;
+      flex-direction: column;
+    }
+    .camera-view.active { display: flex; }
+    .camera-video {
+      width: 100%;
+      flex: 1;
+      object-fit: cover;
+    }
+    .camera-ui {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .scan-frame {
+      width: 240px; height: 180px;
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+    }
+    .scan-frame::before, .scan-frame::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+    .scan-line {
+      position: absolute;
+      left: 4px; right: 4px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      border-radius: 1px;
+      animation: scanLine 2s ease-in-out infinite;
+    }
+    @keyframes scanLine {
+      0% { top: 10px; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: calc(100% - 12px); opacity: 0; }
+    }
+    .camera-hint {
+      margin-top: 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+    .camera-close {
+      position: absolute;
+      top: calc(16px + env(safe-area-inset-top, 0px));
+      right: 16px;
+      width: 40px; height: 40px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      font-size: 18px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .camera-detected {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #080f0e;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 20px;
+      display: none;
+      white-space: nowrap;
+    }
+    .camera-detected.show { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════
+       PIN SHEET
+    ═══════════════════════════════════════════════════════════ */
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding: 20px 0;
+    }
+    .pin-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: transparent;
+      transition: all 0.15s;
+    }
+    .pin-dot.filled { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    .pin-dot.wrong { background: var(--danger); border-color: var(--danger); }
+
+    .pin-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 0 10px 8px;
+    }
+    .pin-key {
+      height: 56px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+    }
+    .pin-key:active { background: var(--accent-dim); border-color: var(--border-accent); transform: scale(0.93); }
+    .pin-key.delete { color: var(--text-muted); font-size: 16px; }
+    .pin-key.empty { visibility: hidden; }
+
+    .pin-shake { animation: pinShake 0.4s ease; }
+    @keyframes pinShake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(5px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SIDE MENU
+    ═══════════════════════════════════════════════════════════ */
+    .side-menu {
+      position: fixed;
+      top: 0; right: 0;
+      width: 280px;
+      height: 100dvh;
+      background: var(--bg-sheet);
+      border-left: 1px solid var(--border);
+      z-index: 400;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      display: flex;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+    .side-menu.open { transform: translateX(0); }
+
+    .menu-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .menu-header-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .menu-header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .menu-body { flex: 1; overflow-y: auto; padding: 8px 0; }
+
+    .menu-group-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 10px 20px 4px;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: background 0.15s;
+    }
+    .menu-item:active { background: var(--bg-elevated); }
+    .menu-item-icon { font-size: 18px; width: 24px; text-align: center; }
+    .menu-item.danger { color: var(--danger); }
+    .menu-item .menu-count {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════════════════════════ */
+    .toast-container {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      animation: toastIn 0.3s cubic-bezier(0.32,0.72,0,1) forwards;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    .toast.success { border-color: rgba(16,185,129,0.4); color: var(--success); }
+    .toast.error { border-color: rgba(239,68,68,0.4); color: var(--danger); }
+    .toast.info { border-color: var(--border-accent); color: var(--accent); }
+    .toast.fade-out { animation: toastOut 0.25s ease forwards; }
+    @keyframes toastIn { from { opacity:0; transform: translateY(-12px) scale(0.9); } to { opacity:1; transform: translateY(0) scale(1); } }
+    @keyframes toastOut { to { opacity:0; transform: translateY(-8px) scale(0.95); } }
+
+    /* ═══════════════════════════════════════════════════════════
+       FILE INPUT
+    ═══════════════════════════════════════════════════════════ */
+    .file-drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .file-drop-zone:hover, .file-drop-zone.dragover {
+      border-color: var(--border-accent);
+      background: var(--accent-dim);
+    }
+    .file-drop-icon { font-size: 32px; margin-bottom: 8px; }
+    .file-drop-text { font-size: 13px; color: var(--text-secondary); }
+    .file-drop-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .file-real-input { display: none; }
+
+    /* ═══════════════════════════════════════════════════════════
+       LOADING STATE
+    ═══════════════════════════════════════════════════════════ */
+    .loading-spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ═══════════════════════════════════════════════════════════
+       DIVIDER
+    ═══════════════════════════════════════════════════════════ */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+<div class="app">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-row">
+      <div class="logo">
+        <div class="logo-icon">💊</div>
+        <span class="logo-name">PharmaScan</span>
+        <span class="logo-version">v6.0</span>
+      </div>
+      <div class="header-actions">
+        <button class="hdr-btn" id="btnMenu" title="Menu">☰</button>
+      </div>
+    </div>
+    <div class="store-badge">
+      <span class="store-no" id="storeNo">30762</span>
+      <span class="store-dot">•</span>
+      <span class="store-name" id="storeName">BOOTS OASIS</span>
+    </div>
+  </header>
+
+  <!-- PAGES -->
+  <div class="pages">
+    <!-- SCAN PAGE -->
+    <div class="page active" id="pageScan">
+      <div class="scan-page">
+        <div class="scan-input-card">
+          <div class="scan-input-label">Scan or Enter Barcode</div>
+          <div class="barcode-input-wrap">
+            <span>🔍</span>
+            <input type="text" id="barcodeInput" class="barcode-input"
+              placeholder="GTIN / EAN / RMS Code"
+              inputmode="numeric" autocomplete="off" autocorrect="off">
+          </div>
+          <div class="scan-btns">
+            <button class="scan-btn primary" id="btnCamera">📷 Camera Scan</button>
+            <button class="scan-btn secondary" id="btnPaste">📋 Bulk Paste</button>
+          </div>
+        </div>
+
+        <div class="stats-strip">
+          <div class="stat-box">
+            <div class="stat-val" id="statTotal">0</div>
+            <div class="stat-lbl">Items</div>
+          </div>
+          <div class="stat-box warn">
+            <div class="stat-val" id="statExpiring">0</div>
+            <div class="stat-lbl">Expiring</div>
+          </div>
+          <div class="stat-box danger">
+            <div class="stat-val" id="statExpired">0</div>
+            <div class="stat-lbl">Expired</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-title">Recent Scans</div>
+          <button class="section-action" id="btnViewAll">View All →</button>
+        </div>
+        <div class="history-list" id="recentList">
+          <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <div class="empty-text">No scans yet. Start scanning!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div class="page" id="pageHistory">
+      <div class="history-page">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search product, barcode, batch…">
+          <button class="search-clear" id="btnSearchClear" style="display:none">✕</button>
+        </div>
+        <div class="filter-chips" id="filterChips">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="expired">Expired</button>
+          <button class="chip" data-filter="expiring">Expiring Soon</button>
+          <button class="chip" data-filter="good">Good</button>
+          <button class="chip" data-filter="sold">SOLD</button>
+          <button class="chip" data-filter="removed">REMOVED</button>
+          <button class="chip" data-filter="pending">Pending</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <div class="empty-text">No items match your filter.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page" id="pageDashboard">
+      <div class="dashboard-page">
+        <div class="dash-title">Expiry <span>Report</span></div>
+
+        <div class="dash-grid">
+          <div class="dash-card accent-card">
+            <div class="dash-card-val" id="dashTotal">0</div>
+            <div class="dash-card-lbl">Total Items</div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-val" id="dashQty">0</div>
+            <div class="dash-card-lbl">Total Units</div>
+          </div>
+          <div class="dash-card warn-card">
+            <div class="dash-card-val" id="dashExpiring">0</div>
+            <div class="dash-card-lbl">Expiring ≤90d</div>
+          </div>
+          <div class="dash-card danger-card">
+            <div class="dash-card-val" id="dashExpired">0</div>
+            <div class="dash-card-lbl">Expired</div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-bottom:8px">
+          <div class="section-title">By Expiry Month</div>
+        </div>
+        <div class="month-breakdown" id="monthBreakdown">
+          <div class="empty-state" style="padding:16px">
+            <div class="empty-text">No data yet</div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-bottom:8px">
+          <div class="section-title">Status Breakdown</div>
+        </div>
+        <div class="status-breakdown">
+          <div class="status-row">
+            <div class="status-row-label"><div class="status-dot" style="background:var(--muted)"></div>Pending</div>
+            <div class="status-row-val" id="dashPending">0</div>
+          </div>
+          <div class="status-row">
+            <div class="status-row-label"><div class="status-dot" style="background:var(--success)"></div>Sold</div>
+            <div class="status-row-val" id="dashSold">0</div>
+          </div>
+          <div class="status-row">
+            <div class="status-row-label"><div class="status-dot" style="background:var(--danger)"></div>Removed</div>
+            <div class="status-row-val" id="dashRemoved">0</div>
+          </div>
+        </div>
+
+        <div class="export-card">
+          <div class="section-title" style="margin-bottom:4px">Export Data</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Boots Oasis format: RMS | BARCODE | DESCRIPTION | EXPIRY | BATCH | QTY | LOCATION | REMARKS</div>
+          <div class="export-btns">
+            <button class="export-btn primary-export" id="btnExportTSV">📤 Export TSV (Excel-ready)</button>
+            <button class="export-btn" id="btnExportCSV">📄 Export CSV</button>
+            <button class="export-btn" id="btnExportJSON">💾 Backup JSON</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" data-page="pageScan">
+      <div class="nav-icon">📷</div>
+      <div class="nav-label">Scan</div>
+    </button>
+    <button class="nav-tab" data-page="pageHistory">
+      <div class="nav-icon">📋</div>
+      <div class="nav-label">History</div>
+    </button>
+    <button class="nav-tab" data-page="pageDashboard">
+      <div class="nav-icon">📊</div>
+      <div class="nav-label">Dashboard</div>
+    </button>
+  </nav>
+</div>
+
+<!-- CAMERA VIEW -->
+<div class="camera-view" id="cameraView">
+  <video class="camera-video" id="cameraVideo" playsinline muted></video>
+  <div class="camera-ui">
+    <div class="scan-frame">
+      <div class="scan-line"></div>
+    </div>
+    <div class="camera-hint">Position barcode within frame</div>
+  </div>
+  <div class="camera-detected" id="cameraDetected"></div>
+  <button class="camera-close" id="btnCameraClose">✕</button>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SCAN SHEET -->
+<div class="sheet" id="scanSheet">
+  <div class="sheet-handle-bar"></div>
+  <div class="sheet-header">
+    <div class="sheet-title" id="scanSheetTitle">Product Found</div>
+    <div class="sheet-subtitle" id="scanSheetSub"></div>
+  </div>
+  <div class="sheet-body">
+    <div class="product-display" id="productDisplay" style="display:none">
+      <div class="product-name-display" id="displayName">-</div>
+      <div class="product-codes" id="displayCodes"></div>
+    </div>
+
+    <div class="form-group" id="nameInputGroup">
+      <label class="form-label">Product Name *</label>
+      <input type="text" class="form-input" id="inputName" placeholder="Enter product name">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Expiry Date <span class="auto-tag" id="expiryAutoTag" style="display:none">AUTO</span></label>
+        <input type="text" class="form-input mono" id="inputExpiry" placeholder="MMYYYY or DDMMYYYY" maxlength="8" inputmode="numeric">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Batch No <span class="auto-tag" id="batchAutoTag" style="display:none">AUTO</span></label>
+        <input type="text" class="form-input mono" id="inputBatch" placeholder="Enter batch">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">RMS Code</label>
+      <input type="text" class="form-input mono" id="inputRMS" placeholder="Optional">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Quantity</label>
+      <div class="qty-row">
+        <button class="qty-btn" id="btnQtyMinus">−</button>
+        <input type="number" class="qty-input" id="inputQty" value="1" min="1">
+        <button class="qty-btn" id="btnQtyPlus">+</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Status / Remarks</label>
+      <div class="remarks-selector">
+        <button class="remarks-opt active-pending" data-val="" id="optPending">Pending</button>
+        <button class="remarks-opt" data-val="SOLD" id="optSold">✓ Sold</button>
+        <button class="remarks-opt" data-val="REMOVED" id="optRemoved">✗ Removed</button>
+      </div>
+    </div>
+  </div>
+  <div class="sheet-footer">
+    <button class="sheet-btn cancel" id="btnScanCancel">Cancel</button>
+    <button class="sheet-btn confirm" id="btnScanSave">Save Item</button>
+  </div>
+</div>
+
+<!-- BULK PASTE SHEET -->
+<div class="sheet" id="pasteSheet">
+  <div class="sheet-handle-bar"></div>
+  <div class="sheet-header">
+    <div class="sheet-title">📋 Bulk Paste</div>
+    <div class="sheet-subtitle">Paste multiple GS1 strings, one per line</div>
+  </div>
+  <div class="sheet-body">
+    <textarea id="pasteTextarea" style="width:100%;height:180px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;color:var(--text-primary);font-family:var(--font-mono);font-size:12px;resize:none;caret-color:var(--accent)" placeholder="Paste GS1 barcodes here…&#10;(01)06297001031292(17)260131(10)BG24025A&#10;6297001031292&#10;…"></textarea>
+    <div id="pasteStats" style="margin-top:10px;padding:10px;background:var(--bg-elevated);border-radius:var(--radius-md);font-size:12px;color:var(--text-muted);display:none"></div>
+  </div>
+  <div class="sheet-footer">
+    <button class="sheet-btn cancel" id="btnPasteCancel">Cancel</button>
+    <button class="sheet-btn confirm" id="btnPasteProcess">Process All</button>
+  </div>
+</div>
+
+<!-- PIN SHEET -->
+<div class="sheet" id="pinSheet">
+  <div class="sheet-handle-bar"></div>
+  <div class="sheet-header">
+    <div class="sheet-title">🔐 PIN Required</div>
+    <div class="sheet-subtitle" id="pinReason">Enter 4-digit PIN to continue</div>
+  </div>
+  <div class="sheet-body">
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot" id="dot0"></div>
+      <div class="pin-dot" id="dot1"></div>
+      <div class="pin-dot" id="dot2"></div>
+      <div class="pin-dot" id="dot3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" data-key="1">1</button>
+      <button class="pin-key" data-key="2">2</button>
+      <button class="pin-key" data-key="3">3</button>
+      <button class="pin-key" data-key="4">4</button>
+      <button class="pin-key" data-key="5">5</button>
+      <button class="pin-key" data-key="6">6</button>
+      <button class="pin-key" data-key="7">7</button>
+      <button class="pin-key" data-key="8">8</button>
+      <button class="pin-key" data-key="9">9</button>
+      <button class="pin-key empty"></button>
+      <button class="pin-key" data-key="0">0</button>
+      <button class="pin-key delete" id="pinDelete">⌫</button>
+    </div>
+  </div>
+  <div class="sheet-footer">
+    <button class="sheet-btn cancel" id="btnPinCancel">Cancel</button>
+  </div>
+</div>
+
+<!-- SETTINGS SHEET -->
+<div class="sheet" id="settingsSheet">
+  <div class="sheet-handle-bar"></div>
+  <div class="sheet-header">
+    <div class="sheet-title">⚙️ Upload Master Data</div>
+    <div class="sheet-subtitle">CSV/TSV with Barcode and Product Name</div>
+  </div>
+  <div class="sheet-body">
+    <div class="file-drop-zone" id="fileDrop">
+      <div class="file-drop-icon">📁</div>
+      <div class="file-drop-text">Tap to choose file</div>
+      <div class="file-drop-sub">CSV, TSV, or TXT accepted</div>
+    </div>
+    <input type="file" class="file-real-input" id="fileInput" accept=".csv,.tsv,.txt">
+
+    <div class="divider"></div>
+
+    <div class="form-group">
+      <label class="form-label">Upload Mode</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="remarks-opt active-pending" id="modeReplace" style="height:44px;font-size:13px">Replace All</button>
+        <button class="remarks-opt" id="modeAppend" style="height:44px;font-size:13px">Append</button>
+      </div>
+    </div>
+    <div id="uploadPreview" style="display:none;padding:10px;background:var(--bg-elevated);border-radius:var(--radius-md);font-size:12px;color:var(--text-secondary)"></div>
+  </div>
+  <div class="sheet-footer">
+    <button class="sheet-btn cancel" id="btnSettingsCancel">Cancel</button>
+    <button class="sheet-btn confirm" id="btnSettingsUpload" disabled>Upload</button>
+  </div>
+</div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    <div class="menu-header-title">PharmaScan Pro</div>
+    <div class="menu-header-sub" id="menuStoreInfo">Store 30762 · Boots Oasis</div>
+  </div>
+  <div class="menu-body">
+    <div class="menu-group-label">Database</div>
+    <div class="menu-item">
+      <span class="menu-item-icon">📦</span>
+      <span>Products in Master</span>
+      <span class="menu-count" id="menuMasterCount">0</span>
+    </div>
+    <div class="menu-item">
+      <span class="menu-item-icon">📋</span>
+      <span>Scan Records</span>
+      <span class="menu-count" id="menuScanCount">0</span>
+    </div>
+
+    <div class="menu-group-label">Actions</div>
+    <button class="menu-item" id="menuUpload">
+      <span class="menu-item-icon">📁</span>
+      <span>Upload Master CSV</span>
+    </button>
+    <button class="menu-item" id="menuRestoreJSON">
+      <span class="menu-item-icon">⬆️</span>
+      <span>Restore Backup</span>
+    </button>
+
+    <div class="menu-group-label">Export</div>
+    <button class="menu-item" id="menuExportTSV">
+      <span class="menu-item-icon">📤</span>
+      <span>Export TSV</span>
+    </button>
+    <button class="menu-item" id="menuExportCSV">
+      <span class="menu-item-icon">📄</span>
+      <span>Export CSV</span>
+    </button>
+    <button class="menu-item" id="menuExportJSON">
+      <span class="menu-item-icon">💾</span>
+      <span>Backup JSON</span>
+    </button>
+
+    <div class="menu-group-label">Danger Zone</div>
+    <button class="menu-item danger" id="menuClearHistory">
+      <span class="menu-item-icon">🗑️</span>
+      <span>Clear All History</span>
+    </button>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- HIDDEN FILE INPUT FOR RESTORE -->
+<input type="file" id="restoreInput" accept=".json" style="display:none">
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   PHARMASCAN PRO v6.0 — Complete JavaScript
+   Store: Boots Oasis (30762) | Dubai, UAE
+═══════════════════════════════════════════════════════════════════ */
+
+'use strict';
+
+// ─── CONFIG ─────────────────────────────────────────────────────────
+const CONFIG = {
+  storeNo: 30762,
+  storeName: 'BOOTS OASIS',
+  pin: '9633',
+  dbName: 'pharmascan_db',
+  dbVersion: 6,
+  apiEnabled: true,
+  exportFilename: 'boots-oasis',
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────
+let state = {
+  history: [],
+  master: [],
+  masterIndex: new Map(),
+  filter: 'all',
+  searchQuery: '',
+  pendingBarcode: null,
+  pendingGs1: null,
+  pinCallback: null,
+  pinBuffer: '',
+  uploadMode: 'replace',
+  uploadData: null,
+  selectedRemarks: '',
+  cameraStream: null,
+  scanDebounce: null,
+  barcodeDetector: null,
+};
+
+// ─── INDEXEDDB ───────────────────────────────────────────────────────
+let db = null;
+
+async function initDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(CONFIG.dbName, CONFIG.dbVersion);
+    req.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('history')) {
+        const hs = d.createObjectStore('history', { keyPath: 'id' });
+        hs.createIndex('gtin14', 'gtin14', { unique: false });
+        hs.createIndex('gtin14_batch', ['gtin14','batch'], { unique: false });
+        hs.createIndex('expiry', 'expiry', { unique: false });
+        hs.createIndex('remarks', 'remarks', { unique: false });
+        hs.createIndex('scanTimestamp', 'scanTimestamp', { unique: false });
+      }
+      if (!d.objectStoreNames.contains('master')) {
+        const ms = d.createObjectStore('master', { keyPath: 'id' });
+        ms.createIndex('gtin14', 'gtin14', { unique: false });
+        ms.createIndex('last8', 'last8', { unique: false });
+      }
+      if (!d.objectStoreNames.contains('config')) {
+        d.createObjectStore('config');
+      }
+    };
+    req.onsuccess = (e) => { db = e.target.result; resolve(); };
+    req.onerror = reject;
+  });
+}
+
+function dbTx(store, mode = 'readonly') {
+  return db.transaction(store, mode).objectStore(store);
+}
+
+async function dbGetAll(store) {
+  return new Promise((res, rej) => {
+    const req = dbTx(store).getAll();
+    req.onsuccess = () => res(req.result);
+    req.onerror = rej;
+  });
+}
+
+async function dbPut(store, value, key) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    const req = key !== undefined ? tx.objectStore(store).put(value, key) : tx.objectStore(store).put(value);
+    req.onsuccess = () => res(req.result);
+    req.onerror = rej;
+  });
+}
+
+async function dbDelete(store, key) {
+  return new Promise((res, rej) => {
+    const req = dbTx(store, 'readwrite').delete(key);
+    req.onsuccess = () => res();
+    req.onerror = rej;
+  });
+}
+
+async function dbClear(store) {
+  return new Promise((res, rej) => {
+    const req = dbTx(store, 'readwrite').clear();
+    req.onsuccess = () => res();
+    req.onerror = rej;
+  });
+}
+
+// ─── GS1 PARSER ──────────────────────────────────────────────────────
+function parseGS1(raw) {
+  const result = { gtin: null, expiry: null, batch: null, qty: null, serial: null, raw };
+  const cleaned = raw.replace(/[\x1D\x1E\x04]/g, '|').replace(/\((\d+)\)/g, '|$1|');
+  const parts = cleaned.split('|').filter(Boolean);
+  let i = 0;
+  while (i < parts.length) {
+    const part = parts[i];
+    if (part === '01' || part === '01'.padEnd(2,'0')) {
+      result.gtin = parts[++i]?.substring(0, 14); i++;
+    } else if (part === '17') {
+      const d = parts[++i]; i++;
+      if (d && d.length === 6) result.expiry = `20${d.slice(0,2)}-${d.slice(2,4)}`;
+    } else if (part === '10') {
+      result.batch = parts[++i]; i++;
+    } else if (part === '21') {
+      result.serial = parts[++i]; i++;
+    } else if (part === '30') {
+      result.qty = parseInt(parts[++i]) || null; i++;
+    } else {
+      if (/^\d{8,14}$/.test(part)) result.gtin = result.gtin || part.padStart(14, '0');
+      i++;
+    }
+  }
+  if (!result.gtin && /^\d{8,14}$/.test(raw.trim())) {
+    result.gtin = raw.trim().padStart(14, '0');
+  }
+  return result;
+}
+
+function toGTIN14(code) {
+  const clean = String(code).replace(/\D/g, '');
+  return clean.padStart(14, '0').slice(0, 14);
+}
+
+function toGTIN13(gtin14) {
+  return gtin14.replace(/^0/, '');
+}
+
+// ─── PRODUCT MATCHER ─────────────────────────────────────────────────
+function buildMasterIndex() {
+  state.masterIndex.clear();
+  state.master.forEach(p => {
+    const g14 = toGTIN14(p.gtin14 || p.barcode || '');
+    if (g14) {
+      state.masterIndex.set(g14, p);
+      state.masterIndex.set(g14.slice(-8), p);
+      state.masterIndex.set(g14.replace(/^0+/,''), p);
+    }
+  });
+}
+
+function matchProduct(barcode) {
+  const g14 = toGTIN14(barcode);
+  if (state.masterIndex.has(g14)) return { ...state.masterIndex.get(g14), matchType: 'EXACT' };
+  const last8 = g14.slice(-8);
+  if (state.masterIndex.has(last8)) return { ...state.masterIndex.get(last8), matchType: 'LAST8' };
+  const stripped = g14.replace(/^0+/,'');
+  if (state.masterIndex.has(stripped)) return { ...state.masterIndex.get(stripped), matchType: 'LAST8' };
+  return null;
+}
+
+async function lookupExternalAPIs(gtin14) {
+  if (!navigator.onLine || !CONFIG.apiEnabled) return null;
+  const apis = [
+    async () => {
+      const r = await fetch(`https://world.openfoodfacts.org/api/v2/product/${gtin14}.json`);
+      const d = await r.json();
+      if (d.status === 1 && d.product?.product_name)
+        return { name: d.product.product_name, brand: d.product.brands || '', matchType: 'API' };
+    },
+    async () => {
+      const r = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${gtin14}`);
+      const d = await r.json();
+      if (d.code === 'OK' && d.items?.length)
+        return { name: d.items[0].title || '', brand: d.items[0].brand || '', matchType: 'API' };
+    }
+  ];
+  for (const api of apis) {
+    try { const r = await Promise.race([api(), new Promise((_,rj)=>setTimeout(()=>rj('timeout'),4000))]); if (r?.name) return r; } catch {}
+  }
+  return null;
+}
+
+// ─── EXPIRY LOGIC ────────────────────────────────────────────────────
+function parseExpiry(val) {
+  if (!val) return null;
+  const s = String(val).replace(/\D/g,'');
+  if (s.length === 6) { // MMYYYY
+    const m = parseInt(s.slice(0,2)), y = parseInt(s.slice(2));
+    if (m >= 1 && m <= 12) return new Date(y, m - 1, 1);
+  }
+  if (s.length === 8) { // DDMMYYYY
+    const m = parseInt(s.slice(2,4)), y = parseInt(s.slice(4));
+    if (m >= 1 && m <= 12) return new Date(y, m - 1, 1);
+  }
+  const dashMatch = val.match(/^(\d{4})-(\d{2})$/);
+  if (dashMatch) return new Date(+dashMatch[1], +dashMatch[2] - 1, 1);
+  return null;
+}
+
+function expiryStatus(dateObj) {
+  if (!dateObj) return 'none';
+  const now = new Date(); now.setHours(0,0,0,0);
+  const diff = Math.ceil((dateObj - now) / (1000*60*60*24));
+  if (diff <= 0) return 'expired';
+  if (diff <= 90) return 'expiring';
+  return 'good';
+}
+
+function formatExpiryDisplay(val) {
+  if (!val) return 'No Expiry';
+  const d = parseExpiry(val);
+  if (!d) return val;
+  return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+}
+
+function formatExpiryDDMMYY(val) {
+  const d = parseExpiry(val);
+  if (!d) return val || '';
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yy = String(d.getFullYear()).slice(-2);
+  return `01${mm}${yy}`;
+}
+
+// ─── HISTORY CRUD ────────────────────────────────────────────────────
+async function loadHistory() {
+  state.history = await dbGetAll('history');
+  state.history.sort((a,b) => new Date(b.scanTimestamp) - new Date(a.scanTimestamp));
+  updateStats();
+  renderRecent();
+  renderHistory();
+  renderDashboard();
+}
+
+async function saveHistoryItem(item) {
+  await dbPut('history', item);
+  const idx = state.history.findIndex(h => h.id === item.id);
+  if (idx >= 0) state.history[idx] = item; else state.history.unshift(item);
+  state.history.sort((a,b) => new Date(b.scanTimestamp) - new Date(a.scanTimestamp));
+  updateStats(); renderRecent(); renderHistory(); renderDashboard();
+}
+
+async function updateHistoryItem(id, changes) {
+  const item = state.history.find(h => h.id === id);
+  if (!item) return;
+  Object.assign(item, changes, { editTimestamp: new Date().toISOString() });
+  await dbPut('history', item);
+  renderHistory(); renderRecent(); renderDashboard(); updateStats();
+}
+
+async function deleteHistoryItem(id) {
+  await dbDelete('history', id);
+  state.history = state.history.filter(h => h.id !== id);
+  renderHistory(); renderRecent(); updateStats(); renderDashboard();
+}
+
+function findExistingItem(gtin14, batch) {
+  return state.history.find(h => h.gtin14 === gtin14 && h.batch === (batch || ''));
+}
+
+// ─── PROCESS SCAN ────────────────────────────────────────────────────
+async function processScan(raw) {
+  vibrate([30,50,30]);
+  const gs1 = parseGS1(raw);
+  if (!gs1.gtin) { showToast('Invalid barcode', 'error'); return; }
+
+  const gtin14 = toGTIN14(gs1.gtin);
+  state.pendingGs1 = gs1;
+  state.pendingBarcode = gtin14;
+
+  // Pre-fill fields
+  document.getElementById('inputExpiry').value = '';
+  document.getElementById('inputBatch').value = '';
+  document.getElementById('inputQty').value = gs1.qty || 1;
+  document.getElementById('inputRMS').value = '';
+  document.getElementById('inputName').value = '';
+  document.getElementById('expiryAutoTag').style.display = 'none';
+  document.getElementById('batchAutoTag').style.display = 'none';
+
+  if (gs1.expiry) {
+    document.getElementById('inputExpiry').value = gs1.expiry.replace('-','');
+    document.getElementById('expiryAutoTag').style.display = 'inline';
+  }
+  if (gs1.batch) {
+    document.getElementById('inputBatch').value = gs1.batch;
+    document.getElementById('batchAutoTag').style.display = 'inline';
+  }
+
+  // Match product
+  let match = matchProduct(gtin14);
+  let displayMode = 'unknown';
+
+  if (match) {
+    displayMode = 'found';
+  } else {
+    showToast('Looking up product…', 'info');
+    const api = await lookupExternalAPIs(gtin14);
+    if (api) { match = api; displayMode = 'api'; }
+  }
+
+  // Populate sheet
+  const productDisplay = document.getElementById('productDisplay');
+  const nameInputGroup = document.getElementById('nameInputGroup');
+
+  if (match && match.name) {
+    productDisplay.style.display = 'block';
+    nameInputGroup.style.display = 'none';
+    document.getElementById('displayName').textContent = match.name;
+    document.getElementById('displayCodes').innerHTML = `
+      <span class="code-chip gtin">${gtin14}</span>
+      <span class="code-chip">${toGTIN13(gtin14)}</span>
+      <span class="code-chip match-${(match.matchType||'').toLowerCase()}">${match.matchType || 'FOUND'}</span>
+    `;
+    document.getElementById('scanSheetTitle').textContent = match.name;
+    document.getElementById('scanSheetSub').textContent = gtin14;
+    document.getElementById('inputName').value = match.name;
+  } else {
+    productDisplay.style.display = 'none';
+    nameInputGroup.style.display = 'block';
+    document.getElementById('scanSheetTitle').textContent = '⚠️ Unknown Product';
+    document.getElementById('scanSheetSub').textContent = gtin14;
+  }
+
+  setRemarks('');
+  openSheet('scanSheet');
+}
+
+async function saveScan() {
+  const name = document.getElementById('inputName').value ||
+    document.getElementById('displayName').textContent;
+  if (!name || name === '-') { showToast('Product name required', 'error'); return; }
+
+  const expiryRaw = document.getElementById('inputExpiry').value.trim();
+  const batch = document.getElementById('inputBatch').value.trim();
+  const qty = parseInt(document.getElementById('inputQty').value) || 1;
+  const rms = document.getElementById('inputRMS').value.trim();
+  const gtin14 = state.pendingBarcode;
+
+  // Check auto-merge
+  const existing = findExistingItem(gtin14, batch);
+  if (existing) {
+    existing.quantity += qty;
+    existing.scanTimestamp = new Date().toISOString();
+    await saveHistoryItem(existing);
+    closeSheet('scanSheet');
+    showToast(`+${qty} added (total: ${existing.quantity})`, 'success');
+    vibrate([30,50,30]);
+    return;
+  }
+
+  const item = {
+    id: crypto.randomUUID(),
+    gtin14,
+    gtin13: toGTIN13(gtin14),
+    barcode: gtin14,
+    rms,
+    description: name,
+    quantity: qty,
+    expiry: expiryRaw ? formatExpiryStored(expiryRaw) : '',
+    batch,
+    locationNo: CONFIG.storeNo,
+    locationName: CONFIG.storeName,
+    remarks: state.selectedRemarks,
+    matchType: state.pendingGs1?.matchType || 'MANUAL',
+    gs1Raw: state.pendingGs1?.raw || gtin14,
+    scanTimestamp: new Date().toISOString(),
+    editTimestamp: null,
+  };
+
+  await saveHistoryItem(item);
+  closeSheet('scanSheet');
+  showToast('✓ Item saved', 'success');
+  vibrate([30,50,30]);
+  document.getElementById('barcodeInput').value = '';
+}
+
+function formatExpiryStored(val) {
+  const s = val.replace(/\D/g,'');
+  if (s.length === 6) return `20${s.slice(2)}-${s.slice(0,2)}`; // MMYYYY → YYYY-MM
+  if (s.length === 8) return `${s.slice(4)}-${s.slice(2,4)}`; // DDMMYYYY → YYYY-MM
+  return val;
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────
+function renderHistoryCard(item) {
+  const d = parseExpiry(item.expiry);
+  const status = expiryStatus(d);
+  const barCls = status === 'expired' ? 'expired' : status === 'expiring' ? 'warn' : status === 'good' ? 'good' : '';
+  const nameCls = status === 'expired' ? 'expired-text' : status === 'expiring' ? 'warn-text' : status === 'good' ? 'good-text' : '';
+  const remarksCls = item.remarks === 'SOLD' ? 'sold' : item.remarks === 'REMOVED' ? 'removed' : 'pending';
+  const remarksLabel = item.remarks || 'Pending';
+
+  return `
+    <div class="hist-card" data-id="${item.id}">
+      <div class="hist-status-bar ${barCls}"></div>
+      <div class="hist-body">
+        <div class="hist-top">
+          <div class="hist-name ${nameCls}">${escHtml(item.description || 'Unknown')}</div>
+          <div class="hist-qty">×${item.quantity}</div>
+        </div>
+        <div class="hist-meta">
+          <span class="hist-meta-item"><span>${toGTIN13(item.gtin14)}</span></span>
+          ${item.expiry ? `<span class="hist-meta-item">Exp: <span>${formatExpiryDisplay(item.expiry)}</span></span>` : ''}
+          ${item.batch ? `<span class="hist-meta-item">Batch: <span>${escHtml(item.batch)}</span></span>` : ''}
+        </div>
+        <div class="hist-footer">
+          <span class="remarks-badge ${remarksCls}">${remarksLabel}</span>
+          <button class="hist-actions-btn" data-id="${item.id}" onclick="openItemActions('${item.id}')">⋯</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderRecent() {
+  const el = document.getElementById('recentList');
+  const items = state.history.slice(0, 5);
+  if (!items.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><div class="empty-text">No scans yet. Start scanning!</div></div>';
+    return;
+  }
+  el.innerHTML = items.map(renderHistoryCard).join('');
+}
+
+function filteredHistory() {
+  let items = [...state.history];
+  const q = state.searchQuery.toLowerCase();
+  if (q) items = items.filter(h =>
+    (h.description||'').toLowerCase().includes(q) ||
+    (h.gtin14||'').includes(q) ||
+    (h.gtin13||'').includes(q) ||
+    (h.batch||'').toLowerCase().includes(q) ||
+    (h.rms||'').toLowerCase().includes(q)
+  );
+  const f = state.filter;
+  if (f === 'expired') items = items.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'expired');
+  else if (f === 'expiring') items = items.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'expiring');
+  else if (f === 'good') items = items.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'good');
+  else if (f === 'sold') items = items.filter(h => h.remarks === 'SOLD');
+  else if (f === 'removed') items = items.filter(h => h.remarks === 'REMOVED');
+  else if (f === 'pending') items = items.filter(h => !h.remarks);
+  return items;
+}
+
+function renderHistory() {
+  const el = document.getElementById('historyList');
+  const items = filteredHistory();
+  if (!items.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">No items match your filter.</div></div>';
+    return;
+  }
+  el.innerHTML = items.map(renderHistoryCard).join('');
+}
+
+function updateStats() {
+  const total = state.history.length;
+  const expired = state.history.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'expired').length;
+  const expiring = state.history.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'expiring').length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statExpiring').textContent = expiring;
+  document.getElementById('statExpired').textContent = expired;
+}
+
+function renderDashboard() {
+  const total = state.history.length;
+  const totalQty = state.history.reduce((s,h) => s + (h.quantity||0), 0);
+  const expired = state.history.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'expired').length;
+  const expiring = state.history.filter(h => expiryStatus(parseExpiry(h.expiry)) === 'expiring').length;
+  const sold = state.history.filter(h => h.remarks === 'SOLD').length;
+  const removed = state.history.filter(h => h.remarks === 'REMOVED').length;
+  const pending = total - sold - removed;
+
+  document.getElementById('dashTotal').textContent = total;
+  document.getElementById('dashQty').textContent = totalQty;
+  document.getElementById('dashExpired').textContent = expired;
+  document.getElementById('dashExpiring').textContent = expiring;
+  document.getElementById('dashSold').textContent = sold;
+  document.getElementById('dashRemoved').textContent = removed;
+  document.getElementById('dashPending').textContent = pending;
+
+  // Month breakdown
+  const monthMap = {};
+  state.history.forEach(h => {
+    if (h.expiry) {
+      const key = h.expiry.slice(0,7);
+      monthMap[key] = (monthMap[key]||0) + 1;
+    }
+  });
+  const months = Object.keys(monthMap).sort();
+  const maxCount = Math.max(...Object.values(monthMap), 1);
+  const mbEl = document.getElementById('monthBreakdown');
+  if (!months.length) {
+    mbEl.innerHTML = '<div class="empty-state" style="padding:16px"><div class="empty-text">No expiry data</div></div>';
+    return;
+  }
+  mbEl.innerHTML = months.map(m => {
+    const d = new Date(m + '-01');
+    const lbl = d.toLocaleDateString('en-GB', { month: 'short', year: '2-digit' });
+    const cnt = monthMap[m];
+    const pct = (cnt / maxCount * 100).toFixed(1);
+    return `<div class="month-row">
+      <div class="month-lbl">${lbl}</div>
+      <div class="month-bar-wrap"><div class="month-bar" style="width:${pct}%"></div></div>
+      <div class="month-count">${cnt}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── ITEM ACTIONS ────────────────────────────────────────────────────
+function openItemActions(id) {
+  const item = state.history.find(h => h.id === id);
+  if (!item) return;
+  const actions = [
+    { label: item.remarks === 'SOLD' ? '✓ Already Sold' : '✓ Mark as Sold', val: 'SOLD' },
+    { label: item.remarks === 'REMOVED' ? '✗ Already Removed' : '✗ Mark as Removed', val: 'REMOVED' },
+    { label: '○ Clear Status', val: '' },
+    { label: '🗑 Delete', val: 'DELETE', danger: true },
+  ];
+  // Simple confirm-style action using PIN
+  const act = actions.find(a => a.val !== item.remarks && a.val !== 'DELETE');
+  requirePIN('Update item status', async () => {
+    const choice = prompt(`Actions for:\n${item.description}\n\n1) Mark SOLD\n2) Mark REMOVED\n3) Clear Status\n4) Delete\n\nEnter number:`);
+    if (choice === '1') { await updateHistoryItem(id, { remarks: 'SOLD' }); showToast('Marked as SOLD', 'success'); }
+    else if (choice === '2') { await updateHistoryItem(id, { remarks: 'REMOVED' }); showToast('Marked as REMOVED', 'success'); }
+    else if (choice === '3') { await updateHistoryItem(id, { remarks: '' }); showToast('Status cleared', 'info'); }
+    else if (choice === '4') {
+      if (confirm(`Delete "${item.description}"?`)) {
+        await deleteHistoryItem(id);
+        showToast('Item deleted', 'info');
+      }
+    }
+  });
+}
+
+// ─── EXPORT ──────────────────────────────────────────────────────────
+function exportTSV() {
+  const header = ['RMS','BARCODE (GTIN)','DESCRIPTION','EXPIRY (DDMMYY)','BATCH','QUANTITY','LOCATION NO','LOCATION NAME','REMARKS'];
+  const rows = state.history.map(h => [
+    h.rms || '',
+    h.gtin14,
+    h.description,
+    formatExpiryDDMMYY(h.expiry),
+    h.batch || '',
+    h.quantity,
+    h.locationNo || CONFIG.storeNo,
+    h.locationName || CONFIG.storeName,
+    h.remarks || '',
+  ]);
+  const tsv = [header, ...rows].map(r => r.join('\t')).join('\n');
+  download(tsv, `${CONFIG.exportFilename}-${datestamp()}.tsv`, 'text/tab-separated-values');
+  showToast('✓ TSV exported', 'success');
+}
+
+function exportCSV() {
+  const header = ['RMS','BARCODE (GTIN)','DESCRIPTION','EXPIRY (DDMMYY)','BATCH','QUANTITY','LOCATION NO','LOCATION NAME','REMARKS'];
+  const rows = state.history.map(h => [
+    h.rms || '',
+    h.gtin14,
+    h.description,
+    formatExpiryDDMMYY(h.expiry),
+    h.batch || '',
+    h.quantity,
+    h.locationNo || CONFIG.storeNo,
+    h.locationName || CONFIG.storeName,
+    h.remarks || '',
+  ]);
+  const csv = [header, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  download(csv, `${CONFIG.exportFilename}-${datestamp()}.csv`, 'text/csv');
+  showToast('✓ CSV exported', 'success');
+}
+
+function exportJSON() {
+  const backup = {
+    version: 6,
+    app: 'PharmaScan Pro',
+    store: `${CONFIG.storeNo} - ${CONFIG.storeName}`,
+    exportDate: new Date().toISOString(),
+    history: state.history,
+    master: state.master,
+  };
+  download(JSON.stringify(backup, null, 2), `${CONFIG.exportFilename}-backup-${datestamp()}.json`, 'application/json');
+  showToast('✓ Backup exported', 'success');
+}
+
+function download(content, filename, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function datestamp() {
+  return new Date().toISOString().slice(0,10).replace(/-/g,'');
+}
+
+// ─── MASTER DATA UPLOAD ───────────────────────────────────────────────
+async function parseMasterCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (!lines.length) return [];
+
+  const delimiters = ['\t',',',';','|'];
+  let delim = ',';
+  for (const d of delimiters) {
+    if (lines[0].split(d).length > 1) { delim = d; break; }
+  }
+
+  const headers = lines[0].split(delim).map(h => h.replace(/"/g,'').trim().toLowerCase());
+  const barcodeCol = headers.findIndex(h => /barcode|gtin|ean|upc|code/.test(h));
+  const nameCol = headers.findIndex(h => /name|product|description|item/.test(h));
+
+  if (barcodeCol < 0 || nameCol < 0) return null;
+
+  const products = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(delim).map(c => c.replace(/^"|"$/g,'').trim());
+    const barcode = cols[barcodeCol]?.replace(/\D/g,'');
+    const name = cols[nameCol];
+    if (!barcode || barcode.length < 8 || !name) continue;
+    products.push({
+      id: crypto.randomUUID(),
+      gtin14: toGTIN14(barcode),
+      barcode,
+      last8: barcode.slice(-8),
+      name,
+      source: 'CSV',
+    });
+  }
+  return products;
+}
+
+// ─── CAMERA SCANNING ─────────────────────────────────────────────────
+async function startCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+    });
+    state.cameraStream = stream;
+    const video = document.getElementById('cameraVideo');
+    video.srcObject = stream;
+    await video.play();
+    document.getElementById('cameraView').classList.add('active');
+    vibrate(30);
+    startBarcodeDetection(video);
+  } catch(e) {
+    showToast('Camera not available', 'error');
+  }
+}
+
+function stopCamera() {
+  if (state.cameraStream) {
+    state.cameraStream.getTracks().forEach(t => t.stop());
+    state.cameraStream = null;
+  }
+  document.getElementById('cameraView').classList.remove('active');
+  state.barcodeDetector = null;
+}
+
+async function startBarcodeDetection(video) {
+  if (!('BarcodeDetector' in window)) {
+    showToast('Barcode detection not supported in this browser', 'error');
+    stopCamera();
+    return;
+  }
+
+  try {
+    const detector = new BarcodeDetector({
+      formats: ['ean_13','ean_8','upc_a','upc_e','qr_code','data_matrix','code_128','code_39','itf']
+    });
+
+    const detect = async () => {
+      if (!state.cameraStream) return;
+      try {
+        const codes = await detector.detect(video);
+        if (codes.length > 0) {
+          const code = codes[0].rawValue;
+          const detectedEl = document.getElementById('cameraDetected');
+          detectedEl.textContent = code;
+          detectedEl.classList.add('show');
+          setTimeout(() => detectedEl.classList.remove('show'), 1000);
+
+          if (!state.scanDebounce) {
+            state.scanDebounce = setTimeout(() => { state.scanDebounce = null; }, 2000);
+            stopCamera();
+            processScan(code);
+            return;
+          }
+        }
+      } catch {}
+      requestAnimationFrame(detect);
+    };
+    requestAnimationFrame(detect);
+  } catch(e) {
+    showToast('Scanner error: ' + e.message, 'error');
+  }
+}
+
+// ─── BULK PASTE ───────────────────────────────────────────────────────
+async function processBulkPaste() {
+  const text = document.getElementById('pasteTextarea').value.trim();
+  if (!text) return;
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  let added = 0, merged = 0, failed = 0;
+
+  for (const line of lines) {
+    const gs1 = parseGS1(line);
+    if (!gs1.gtin) { failed++; continue; }
+    const gtin14 = toGTIN14(gs1.gtin);
+    const existing = findExistingItem(gtin14, gs1.batch || '');
+    if (existing) {
+      existing.quantity += 1;
+      existing.scanTimestamp = new Date().toISOString();
+      await saveHistoryItem(existing);
+      merged++;
+    } else {
+      let match = matchProduct(gtin14);
+      if (!match) match = { name: '', matchType: 'MANUAL' };
+      const item = {
+        id: crypto.randomUUID(),
+        gtin14, gtin13: toGTIN13(gtin14), barcode: gtin14,
+        rms: '', description: match.name || gtin14,
+        quantity: gs1.qty || 1,
+        expiry: gs1.expiry || '',
+        batch: gs1.batch || '',
+        locationNo: CONFIG.storeNo, locationName: CONFIG.storeName,
+        remarks: '', matchType: match.matchType || 'MANUAL',
+        gs1Raw: line, scanTimestamp: new Date().toISOString(), editTimestamp: null,
+      };
+      await saveHistoryItem(item);
+      added++;
+    }
+  }
+
+  const statsEl = document.getElementById('pasteStats');
+  statsEl.innerHTML = `✓ <b>${added}</b> added · <b>${merged}</b> merged · <b>${failed}</b> failed`;
+  statsEl.style.display = 'block';
+  showToast(`Processed ${lines.length} lines`, 'success');
+  setTimeout(() => { closeSheet('pasteSheet'); document.getElementById('pasteTextarea').value = ''; statsEl.style.display='none'; }, 2000);
+}
+
+// ─── PIN SYSTEM ───────────────────────────────────────────────────────
+function requirePIN(reason, callback) {
+  state.pinCallback = callback;
+  state.pinBuffer = '';
+  document.getElementById('pinReason').textContent = reason;
+  updatePinDots();
+  openSheet('pinSheet');
+}
+
+function updatePinDots() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById(`dot${i}`);
+    dot.classList.toggle('filled', i < state.pinBuffer.length);
+    dot.classList.remove('wrong');
+  }
+}
+
+function pinKey(key) {
+  if (state.pinBuffer.length >= 4) return;
+  state.pinBuffer += key;
+  vibrate(10);
+  updatePinDots();
+  if (state.pinBuffer.length === 4) {
+    setTimeout(checkPIN, 100);
+  }
+}
+
+function pinDelete() {
+  if (state.pinBuffer.length > 0) {
+    state.pinBuffer = state.pinBuffer.slice(0,-1);
+    updatePinDots();
+  }
+}
+
+function checkPIN() {
+  if (state.pinBuffer === CONFIG.pin) {
+    closeSheet('pinSheet');
+    vibrate([10,50,30]);
+    if (state.pinCallback) { state.pinCallback(); state.pinCallback = null; }
+  } else {
+    vibrate([100,50,100]);
+    for (let i = 0; i < 4; i++) {
+      const dot = document.getElementById(`dot${i}`);
+      dot.classList.remove('filled');
+      dot.classList.add('wrong');
+    }
+    document.getElementById('pinDots').classList.add('pin-shake');
+    setTimeout(() => {
+      document.getElementById('pinDots').classList.remove('pin-shake');
+      state.pinBuffer = '';
+      updatePinDots();
+    }, 500);
+  }
+}
+
+// ─── SHEET MANAGEMENT ────────────────────────────────────────────────
+const sheets = ['scanSheet','pasteSheet','pinSheet','settingsSheet'];
+
+function openSheet(id) {
+  closeAllSheets();
+  document.getElementById(id).classList.add('open');
+  document.getElementById('overlay').classList.add('active');
+}
+
+function closeSheet(id) {
+  document.getElementById(id).classList.remove('open');
+  const anyOpen = sheets.some(s => document.getElementById(s).classList.contains('open'));
+  if (!anyOpen) document.getElementById('overlay').classList.remove('active');
+}
+
+function closeAllSheets() {
+  sheets.forEach(s => document.getElementById(s).classList.remove('open'));
+  document.getElementById('overlay').classList.remove('active');
+}
+
+// ─── SIDE MENU ────────────────────────────────────────────────────────
+function openMenu() {
+  document.getElementById('sideMenu').classList.add('open');
+  document.getElementById('overlay').classList.add('active');
+  document.getElementById('menuMasterCount').textContent = state.master.length;
+  document.getElementById('menuScanCount').textContent = state.history.length;
+}
+
+function closeMenu() {
+  document.getElementById('sideMenu').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────
+function switchPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.querySelector(`[data-page="${pageId}"]`)?.classList.add('active');
+  vibrate(10);
+  if (pageId === 'pageDashboard') renderDashboard();
+  if (pageId === 'pageHistory') renderHistory();
+}
+
+// ─── REMARKS SELECTOR ─────────────────────────────────────────────────
+function setRemarks(val) {
+  state.selectedRemarks = val;
+  document.getElementById('optPending').className = 'remarks-opt ' + (val === '' ? 'active-pending' : '');
+  document.getElementById('optSold').className = 'remarks-opt ' + (val === 'SOLD' ? 'active-sold' : '');
+  document.getElementById('optRemoved').className = 'remarks-opt ' + (val === 'REMOVED' ? 'active-removed' : '');
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────
+function showToast(msg, type = 'info') {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  const icons = { success:'✓', error:'✕', info:'ℹ' };
+  el.innerHTML = `<span>${icons[type]||'•'}</span> ${msg}`;
+  document.getElementById('toastContainer').appendChild(el);
+  setTimeout(() => {
+    el.classList.add('fade-out');
+    setTimeout(() => el.remove(), 300);
+  }, 2500);
+}
+
+// ─── HAPTICS ─────────────────────────────────────────────────────────
+function vibrate(pattern) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
+}
+
+// ─── UTILS ───────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── EVENT LISTENERS ─────────────────────────────────────────────────
+function initEvents() {
+  // Nav
+  document.querySelectorAll('.nav-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchPage(btn.dataset.page));
+  });
+
+  // Header
+  document.getElementById('btnMenu').addEventListener('click', openMenu);
+
+  // Overlay click closes everything
+  document.getElementById('overlay').addEventListener('click', () => {
+    closeAllSheets();
+    closeMenu();
+    stopCamera();
+  });
+
+  // Barcode input
+  const barcodeInput = document.getElementById('barcodeInput');
+  barcodeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { processScan(barcodeInput.value.trim()); }
+  });
+
+  // Camera
+  document.getElementById('btnCamera').addEventListener('click', startCamera);
+  document.getElementById('btnCameraClose').addEventListener('click', stopCamera);
+
+  // Bulk paste
+  document.getElementById('btnPaste').addEventListener('click', () => openSheet('pasteSheet'));
+  document.getElementById('btnPasteCancel').addEventListener('click', () => closeSheet('pasteSheet'));
+  document.getElementById('btnPasteProcess').addEventListener('click', processBulkPaste);
+
+  // View all
+  document.getElementById('btnViewAll').addEventListener('click', () => switchPage('pageHistory'));
+
+  // Scan sheet
+  document.getElementById('btnScanCancel').addEventListener('click', () => closeSheet('scanSheet'));
+  document.getElementById('btnScanSave').addEventListener('click', saveScan);
+
+  // Qty controls
+  document.getElementById('btnQtyMinus').addEventListener('click', () => {
+    const inp = document.getElementById('inputQty');
+    if (parseInt(inp.value) > 1) inp.value = parseInt(inp.value) - 1;
+    vibrate(10);
+  });
+  document.getElementById('btnQtyPlus').addEventListener('click', () => {
+    const inp = document.getElementById('inputQty');
+    inp.value = parseInt(inp.value) + 1;
+    vibrate(10);
+  });
+
+  // Remarks options
+  document.getElementById('optPending').addEventListener('click', () => setRemarks(''));
+  document.getElementById('optSold').addEventListener('click', () => setRemarks('SOLD'));
+  document.getElementById('optRemoved').addEventListener('click', () => setRemarks('REMOVED'));
+
+  // PIN
+  document.querySelectorAll('.pin-key[data-key]').forEach(btn => {
+    btn.addEventListener('click', () => pinKey(btn.dataset.key));
+  });
+  document.getElementById('pinDelete').addEventListener('click', pinDelete);
+  document.getElementById('btnPinCancel').addEventListener('click', () => { closeSheet('pinSheet'); state.pinCallback = null; state.pinBuffer = ''; });
+
+  // Search
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', () => {
+    state.searchQuery = searchInput.value;
+    document.getElementById('btnSearchClear').style.display = state.searchQuery ? '' : 'none';
+    renderHistory();
+  });
+  document.getElementById('btnSearchClear').addEventListener('click', () => {
+    searchInput.value = ''; state.searchQuery = '';
+    document.getElementById('btnSearchClear').style.display = 'none';
+    renderHistory();
+  });
+
+  // Filter chips
+  document.getElementById('filterChips').addEventListener('click', (e) => {
+    if (!e.target.classList.contains('chip')) return;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    state.filter = e.target.dataset.filter;
+    vibrate(10);
+    renderHistory();
+  });
+
+  // Export buttons
+  document.getElementById('btnExportTSV').addEventListener('click', exportTSV);
+  document.getElementById('btnExportCSV').addEventListener('click', exportCSV);
+  document.getElementById('btnExportJSON').addEventListener('click', exportJSON);
+  document.getElementById('menuExportTSV').addEventListener('click', () => { closeMenu(); exportTSV(); });
+  document.getElementById('menuExportCSV').addEventListener('click', () => { closeMenu(); exportCSV(); });
+  document.getElementById('menuExportJSON').addEventListener('click', () => { closeMenu(); exportJSON(); });
+
+  // Menu actions
+  document.getElementById('menuUpload').addEventListener('click', () => {
+    closeMenu();
+    requirePIN('Upload Master CSV', () => openSheet('settingsSheet'));
+  });
+
+  document.getElementById('menuClearHistory').addEventListener('click', () => {
+    closeMenu();
+    requirePIN('Clear all history', async () => {
+      if (confirm('This will DELETE all scan history. Cannot be undone. Continue?')) {
+        await dbClear('history');
+        state.history = [];
+        updateStats(); renderRecent(); renderHistory(); renderDashboard();
+        showToast('History cleared', 'info');
+      }
+    });
+  });
+
+  document.getElementById('menuRestoreJSON').addEventListener('click', () => {
+    closeMenu();
+    requirePIN('Restore backup', () => document.getElementById('restoreInput').click());
+  });
+
+  document.getElementById('restoreInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const backup = JSON.parse(text);
+      if (!backup.history) throw new Error('Invalid backup format');
+      await dbClear('history');
+      for (const item of backup.history) await dbPut('history', item);
+      if (backup.master) {
+        await dbClear('master');
+        for (const item of backup.master) await dbPut('master', item);
+        state.master = backup.master;
+        buildMasterIndex();
+      }
+      await loadHistory();
+      showToast(`✓ Restored ${backup.history.length} items`, 'success');
+    } catch(err) {
+      showToast('Invalid backup file', 'error');
+    }
+    e.target.value = '';
+  });
+
+  // Settings sheet
+  document.getElementById('btnSettingsCancel').addEventListener('click', () => closeSheet('settingsSheet'));
+  document.getElementById('fileDrop').addEventListener('click', () => document.getElementById('fileInput').click());
+
+  document.getElementById('fileInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    const products = await parseMasterCSV(text);
+    if (!products) { showToast('Could not detect Barcode/Name columns', 'error'); return; }
+    state.uploadData = products;
+    document.getElementById('uploadPreview').innerHTML = `<b>${products.length}</b> products found in file. Ready to upload.`;
+    document.getElementById('uploadPreview').style.display = 'block';
+    document.getElementById('btnSettingsUpload').disabled = false;
+    document.getElementById('fileDrop').querySelector('.file-drop-text').textContent = file.name;
+  });
+
+  document.getElementById('modeReplace').addEventListener('click', () => {
+    state.uploadMode = 'replace';
+    document.getElementById('modeReplace').className = 'remarks-opt active-pending';
+    document.getElementById('modeAppend').className = 'remarks-opt';
+  });
+  document.getElementById('modeAppend').addEventListener('click', () => {
+    state.uploadMode = 'append';
+    document.getElementById('modeReplace').className = 'remarks-opt';
+    document.getElementById('modeAppend').className = 'remarks-opt active-sold';
+  });
+
+  document.getElementById('btnSettingsUpload').addEventListener('click', async () => {
+    if (!state.uploadData) return;
+    if (state.uploadMode === 'replace') {
+      await dbClear('master');
+      state.master = [];
+    }
+    for (const p of state.uploadData) await dbPut('master', p);
+    state.master = await dbGetAll('master');
+    buildMasterIndex();
+    closeSheet('settingsSheet');
+    showToast(`✓ ${state.uploadData.length} products uploaded`, 'success');
+    state.uploadData = null;
+    document.getElementById('btnSettingsUpload').disabled = true;
+    document.getElementById('uploadPreview').style.display = 'none';
+    document.getElementById('fileDrop').querySelector('.file-drop-text').textContent = 'Tap to choose file';
+  });
+}
+
+// ─── SERVICE WORKER ───────────────────────────────────────────────────
+function initSW() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+}
+
+// ─── DEMO DATA ────────────────────────────────────────────────────────
+async function loadDemoData() {
+  if (state.history.length > 0) return;
+  const demos = [
+    { desc:'EDYST TAB 20MG 4S', gtin:'6297001031292', expiry:'2026-01', batch:'BG24025A', qty:2, remarks:'REMOVED' },
+    { desc:'HYALO4 SKIN CREAM 25GM', gtin:'8033661802548', expiry:'2026-01', batch:'G04620', qty:2, remarks:'' },
+    { desc:'SNAFI 20MG TABLETS 4S', gtin:'965013700267', expiry:'2026-01', batch:'1144996', qty:3, remarks:'SOLD' },
+    { desc:'EUCARBON TABLETS 100S', gtin:'80336618025', expiry:'2026-02', batch:'3G5W', qty:1, remarks:'' },
+    { desc:'SONGHA NIGHT 30 CAPS', gtin:'7610939003428', expiry:'2026-02', batch:'R0078701', qty:2, remarks:'' },
+    { desc:'ACCUCHECK GUIDE STRIPS 50S', gtin:'5903163603246', expiry:'2026-03', batch:'124040910', qty:1, remarks:'' },
+    { desc:'VOLTAREN TOPICAL GEL 100GM', gtin:'6291109120759', expiry:'2026-06', batch:'D73A', qty:4, remarks:'' },
+    { desc:'BIONIKA CARDIOLL 5G SACHETS', gtin:'5319991382398', expiry:'2026-04', batch:'123924', qty:2, remarks:'SOLD' },
+  ];
+
+  for (const d of demos) {
+    const gtin14 = toGTIN14(d.gtin);
+    await saveHistoryItem({
+      id: crypto.randomUUID(),
+      gtin14, gtin13: toGTIN13(gtin14), barcode: gtin14,
+      rms: d.gtin, description: d.desc,
+      quantity: d.qty, expiry: d.expiry, batch: d.batch,
+      locationNo: CONFIG.storeNo, locationName: CONFIG.storeName,
+      remarks: d.remarks, matchType: 'EXACT', gs1Raw: gtin14,
+      scanTimestamp: new Date().toISOString(), editTimestamp: null,
+    });
+  }
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    await initDB();
+    state.master = await dbGetAll('master');
+    buildMasterIndex();
+    await loadHistory();
+    await loadDemoData();
+    initEvents();
+    initSW();
+    showToast(`PharmaScan Pro ready · ${CONFIG.storeName}`, 'info');
+  } catch(err) {
+    console.error('Init error:', err);
+    showToast('Initialization error', 'error');
+  }
+}
+
+init();
+</script>
+</body>
+</html>
