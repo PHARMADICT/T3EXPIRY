@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#00d4aa">
-  <meta name="description" content="PharmaScan Pro — Boots Oasis Expiry Tracker">
+  <meta name="description" content="PharmaScan Pro — Boots T3 Expiry Tracker">
   <title>PharmaScan Pro</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════════════
-       CSS CUSTOM PROPERTIES — BOOTS OASIS THEME
+       CSS CUSTOM PROPERTIES — BOOTS T3 THEME
     ═══════════════════════════════════════════════════════════ */
     :root {
       --bg-primary: #080f0e;
@@ -959,7 +959,7 @@
       100% { top: calc(100% - 12px); opacity: 0; }
     }
     .camera-hint {
-      margin-top: 24px;
+      margin-top: 18px;
       font-size: 13px;
       color: rgba(255,255,255,0.7);
       text-align: center;
@@ -1203,7 +1203,7 @@
     <div class="store-badge">
       <span class="store-no" id="storeNo">30762</span>
       <span class="store-dot">•</span>
-      <span class="store-name" id="storeName">BOOTS OASIS</span>
+      <span class="store-name" id="storeName">BOOTS T3</span>
     </div>
   </header>
 
@@ -1264,12 +1264,12 @@
         </div>
         <div class="filter-chips" id="filterChips">
           <button class="chip active" data-filter="all">All</button>
-          <button class="chip" data-filter="expired">Expired</button>
-          <button class="chip" data-filter="expiring">Expiring Soon</button>
-          <button class="chip" data-filter="good">Good</button>
+          <button class="chip" data-filter="expired">EXPIRED</button>
+          <button class="chip" data-filter="expiring">NEAR EXPIRY</button>
+          <button class="chip" data-filter="good">GOOD</button>
           <button class="chip" data-filter="sold">SOLD</button>
           <button class="chip" data-filter="removed">REMOVED</button>
-          <button class="chip" data-filter="pending">Pending</button>
+          <button class="chip" data-filter="pending">ON RACK</button>
         </div>
         <div class="history-list" id="historyList">
           <div class="empty-state">
@@ -1333,7 +1333,7 @@
 
         <div class="export-card">
           <div class="section-title" style="margin-bottom:4px">Export Data</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Boots Oasis format: RMS | BARCODE | DESCRIPTION | EXPIRY | BATCH | QTY | LOCATION | REMARKS</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Boots T3 format: RMS | BARCODE | DESCRIPTION | EXPIRY | BATCH | QTY | LOCATION | REMARKS</div>
           <div class="export-btns">
             <button class="export-btn primary-export" id="btnExportTSV">📤 Export TSV (Excel-ready)</button>
             <button class="export-btn" id="btnExportCSV">📄 Export CSV</button>
@@ -1522,7 +1522,7 @@
 <div class="side-menu" id="sideMenu">
   <div class="menu-header">
     <div class="menu-header-title">PharmaScan Pro</div>
-    <div class="menu-header-sub" id="menuStoreInfo">Store 30762 · Boots Oasis</div>
+    <div class="menu-header-sub" id="menuStoreInfo">Store 30762 · Boots T3</div>
   </div>
   <div class="menu-body">
     <div class="menu-group-label">Database</div>
@@ -1578,7 +1578,7 @@
 <script>
 /* ═══════════════════════════════════════════════════════════════════
    PHARMASCAN PRO v6.0 — Complete JavaScript
-   Store: Boots Oasis (30762) | Dubai, UAE
+   Store: Boots T3 (30762) | Dubai, UAE
 ═══════════════════════════════════════════════════════════════════ */
 
 'use strict';
@@ -1586,12 +1586,12 @@
 // ─── CONFIG ─────────────────────────────────────────────────────────
 const CONFIG = {
   storeNo: 30762,
-  storeName: 'BOOTS OASIS',
+  storeName: 'BOOTS T3',
   pin: '9633',
   dbName: 'pharmascan_db',
   dbVersion: 6,
   apiEnabled: true,
-  exportFilename: 'boots-oasis',
+  exportFilename: 'boots-T3',
 };
 
 // ─── STATE ───────────────────────────────────────────────────────────
