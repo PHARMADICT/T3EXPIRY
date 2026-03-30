@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#f0faf8">
-  <title>PharmaScan Pro - Supplier Edition</title>
+  <title>PharmaScan Pro</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +16,7 @@
   <style type="text/tailwindcss">
     @import "tailwindcss";
     @theme {
+      /* ── Brand palette ── */
       --color-teal-50:  oklch(0.977 0.021 178);
       --color-teal-100: oklch(0.950 0.040 178);
       --color-teal-200: oklch(0.900 0.072 178);
@@ -24,6 +25,7 @@
       --color-teal-500: oklch(0.680 0.124 178);
       --color-teal-600: oklch(0.580 0.112 178);
       --color-teal-700: oklch(0.480 0.096 178);
+      /* ── Status ── */
       --color-danger-50:  oklch(0.97 0.013 25);
       --color-danger-100: oklch(0.93 0.032 25);
       --color-danger-200: oklch(0.88 0.055 25);
@@ -40,6 +42,10 @@
       --color-emerald-500: oklch(0.70 0.148 155);
       --color-emerald-600: oklch(0.60 0.140 155);
       --color-emerald-700: oklch(0.50 0.122 155);
+      --color-violet-100: oklch(0.93 0.034 293);
+      --color-violet-500: oklch(0.67 0.18  293);
+      --color-violet-600: oklch(0.57 0.17  293);
+      /* ── Neutrals ── */
       --color-slate-50:  oklch(0.984 0.003 247);
       --color-slate-100: oklch(0.961 0.006 247);
       --color-slate-200: oklch(0.927 0.009 247);
@@ -50,6 +56,7 @@
       --color-slate-700: oklch(0.372 0.014 247);
       --color-slate-800: oklch(0.279 0.010 247);
       --color-slate-900: oklch(0.208 0.007 247);
+      /* ── Typography ── */
       --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
       --text-2xs:  0.625rem;
@@ -68,7 +75,6 @@
       --tracking-tightest: -0.04em;
       --tracking-tighter:  -0.02em;
       --tracking-tight:    -0.01em;
-      --tracking-normal:    0em;
       --tracking-wide:      0.04em;
       --tracking-wider:     0.08em;
       --tracking-widest:    0.12em;
@@ -76,10 +82,10 @@
       --leading-tight:   1.25;
       --leading-snug:    1.375;
       --leading-normal:  1.5;
-      --leading-relaxed: 1.625;
+      /* ── Breakpoints ── */
       --breakpoint-xs: 375px;
       --breakpoint-sm: 640px;
-      --breakpoint-md: 768px;
+      /* ── Radius ── */
       --radius-xs:   4px;
       --radius-sm:   6px;
       --radius-md:   10px;
@@ -87,71 +93,113 @@
       --radius-xl:   18px;
       --radius-2xl:  24px;
       --radius-full: 9999px;
-      --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.04);
-      --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-      --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04);
-      --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.04);
-      --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.04);
+      /* ── Shadows ── */
+      --shadow-xs:   0 1px 2px 0 rgb(0 0 0 / 0.04);
+      --shadow-sm:   0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+      --shadow-md:   0 4px 6px -1px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04);
+      --shadow-lg:   0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+      --shadow-xl:   0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.04);
       --shadow-teal: 0 4px 14px -2px oklch(0.680 0.124 178 / 0.30);
       --inset-shadow-xs: inset 0 1px 0 0 rgb(255 255 255 / 0.8);
       --inset-shadow-sm: inset 0 2px 4px 0 rgb(0 0 0 / 0.04);
     }
+
     *, *::before, *::after { box-sizing: border-box; }
     html { -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); }
-    body { background: var(--color-slate-50); color: var(--color-slate-800); min-height: 100dvh; overflow: hidden; user-select: none; -webkit-user-select: none; overscroll-behavior: none; }
+    body { background: oklch(0.977 0.021 178); color: oklch(0.279 0.010 247); min-height: 100dvh; overflow: hidden; user-select: none; -webkit-user-select: none; overscroll-behavior: none; }
     button { font-family: var(--font-sans); }
-    input, textarea { font-family: var(--font-sans); }
+    input, textarea, select { font-family: var(--font-sans); }
+
     .page { -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .page::-webkit-scrollbar { display: none; }
     .chips-row { scrollbar-width: none; }
     .chips-row::-webkit-scrollbar { display: none; }
+
+    /* Scan line */
     @keyframes scanLine { 0%{top:8px;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{top:calc(100% - 10px);opacity:0} }
     .scan-line { animation: scanLine 2s ease-in-out infinite; }
+
+    /* PIN shake */
     @keyframes pinShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(4px)} }
     .pin-shake { animation: pinShake 0.4s ease; }
+
+    /* Toasts */
     @keyframes toastIn  { from{opacity:0;transform:translateY(-10px) scale(0.92)} to{opacity:1;transform:translateY(0) scale(1)} }
     @keyframes toastOut { to{opacity:0;transform:translateY(-6px) scale(0.95)} }
     .toast-in  { animation: toastIn  0.28s cubic-bezier(0.32,0.72,0,1) forwards; }
     .toast-out { animation: toastOut 0.22s ease forwards; }
+
+    /* Sheets & overlays */
     .sheet { transform: translateY(100%); transition: transform 0.32s cubic-bezier(0.32,0.72,0,1); }
     .sheet.open { transform: translateY(0); }
     .overlay { opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .overlay.active { opacity: 1; pointer-events: all; }
     .side-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1); }
     .side-menu.open { transform: translateX(0); }
-    .press:active { transform: scale(0.96); opacity: 0.85; }
+
+    /* Press states */
+    .press:active { transform: scale(0.96); opacity: 0.85; transition: transform 0.08s, opacity 0.08s; }
+    .press-sm:active { transform: scale(0.97); }
+
+    /* Card status borders */
+    .border-l-good    { border-left: 3px solid oklch(0.70 0.148 155); }
+    .border-l-warn    { border-left: 3px solid oklch(0.76 0.147 85); }
+    .border-l-expired { border-left: 3px solid oklch(0.62 0.21 25); }
+    .border-l-none    { border-left: 3px solid oklch(0.869 0.012 247); }
+
+    /* Month picker */
+    .month-btn { transition: background 0.12s, color 0.12s, transform 0.08s; }
+    .month-btn:active { transform: scale(0.92); }
+    .month-btn.selected { background: oklch(0.680 0.124 178); color: white; }
+
+    /* Autocomplete */
+    .ac-item { transition: background 0.1s; }
+    .ac-item:active { background: oklch(0.950 0.040 178); }
+
+    /* Fade up */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    .fade-up { animation: fadeUp 0.25s ease forwards; }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spin { animation: spin 0.7s linear infinite; }
+
+    /* Bar fill */
     .bar-fill { transition: width 0.7s cubic-bezier(0.4,0,0.2,1); }
-    .card-border-good    { border-left: 3px solid oklch(0.70 0.148 155); }
-    .card-border-warn    { border-left: 3px solid oklch(0.76 0.147 85); }
-    .card-border-expired { border-left: 3px solid oklch(0.62 0.21 25); }
-    .card-border-none    { border-left: 3px solid oklch(0.869 0.012 247); }
-    .pin-dot { transition: background 0.12s, border-color 0.12s, box-shadow 0.12s; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-    .fade-up { animation: fadeUp 0.3s ease forwards; }
   </style>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════════ APP ══ -->
 <div class="flex flex-col" style="height:100dvh;overflow:hidden">
 
   <!-- HEADER -->
-  <header class="flex-shrink-0 bg-white border-b border-slate-200 px-4 pt-3 pb-2.5 z-50" style="box-shadow:var(--shadow-xs)">
+  <header class="flex-shrink-0 bg-white border-b border-slate-200 px-4 pt-3 pb-2.5 z-50" style="box-shadow:0 1px 3px rgb(0 0 0/0.06)">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2.5">
         <div class="w-8 h-8 bg-teal-500 rounded-xl flex items-center justify-center text-white text-lg flex-shrink-0" style="box-shadow:var(--shadow-teal)">💊</div>
         <div>
           <span class="font-extrabold text-sm text-slate-800 tracking-tight">PharmaScan Pro</span>
-          <span class="ml-1.5 font-mono text-2xs font-semibold text-teal-500 bg-teal-50 border border-teal-100 px-1.5 py-0.5 rounded">v7</span>
+          <span class="ml-1.5 font-mono text-2xs font-semibold text-teal-600 bg-teal-50 border border-teal-200 px-1.5 py-0.5 rounded">v7</span>
         </div>
       </div>
-      <button id="btnMenu" class="press w-9 h-9 rounded-xl flex items-center justify-center text-slate-400 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-colors">
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect width="16" height="1.5" rx="0.75" fill="currentColor"/><rect y="5.25" width="11" height="1.5" rx="0.75" fill="currentColor"/><rect y="10.5" width="13" height="1.5" rx="0.75" fill="currentColor"/></svg>
-      </button>
+      <div class="flex items-center gap-2">
+        <button id="btnTemplate" class="press flex items-center gap-1.5 h-8 px-3 bg-amber-50 border border-amber-200 text-amber-600 rounded-lg text-xs font-bold" title="Session Template">
+          📋 Template
+        </button>
+        <button id="btnMenu" class="press w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 bg-slate-50 border border-slate-200">
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><rect width="15" height="1.5" rx="0.75" fill="currentColor"/><rect y="4.75" width="10" height="1.5" rx="0.75" fill="currentColor"/><rect y="9.5" width="12" height="1.5" rx="0.75" fill="currentColor"/></svg>
+        </button>
+      </div>
     </div>
-    <div class="flex items-center gap-2 mt-2.5">
-      <span class="font-mono text-2xs font-bold text-teal-600 bg-teal-50 border border-teal-100 px-2 py-0.5 rounded-md tracking-wider">30762</span>
-      <span class="text-slate-300">·</span>
-      <span class="text-slate-500 text-xs font-semibold tracking-widest uppercase">Boots T3</span>
+    <div class="flex items-center gap-2 mt-2">
+      <span class="font-mono text-2xs font-bold text-teal-600 bg-teal-50 border border-teal-100 px-2 py-0.5 rounded tracking-wider">30762</span>
+      <span class="text-slate-300 text-xs">·</span>
+      <span class="text-slate-500 text-xs font-semibold tracking-widest uppercase">Boots Oasis</span>
+      <!-- Template indicator -->
+      <span id="templateBadge" class="hidden ml-1 inline-flex items-center gap-1 text-2xs font-bold bg-amber-50 border border-amber-200 text-amber-600 px-2 py-0.5 rounded-full">
+        📋 <span id="templateBadgeText">Template active</span>
+      </span>
       <span class="ml-auto inline-flex items-center gap-1 text-2xs text-emerald-600 font-bold">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Online
       </span>
@@ -161,38 +209,26 @@
   <!-- PAGES -->
   <div class="flex-1 relative overflow-hidden">
 
-    <!-- SCAN PAGE -->
+    <!-- ── SCAN PAGE ── -->
     <div class="page absolute inset-0 overflow-y-auto" id="pageScan" style="display:block;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))">
       <div class="p-4 space-y-3.5">
 
-        <!-- Scan card -->
+        <!-- Scanner card -->
         <div class="bg-white rounded-2xl border border-slate-100 p-4" style="box-shadow:var(--shadow-sm)">
           <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-3">Scan or Enter Barcode</p>
-          <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-xl px-3 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition-all" style="box-shadow:var(--inset-shadow-sm)">
+          <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-xl px-3 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition-all">
             <svg class="text-slate-300 flex-shrink-0" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="6.5" cy="6.5" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
             <input id="barcodeInput" type="text" inputmode="numeric" autocomplete="off"
-              placeholder="GTIN / EAN / RMS code…"
+              placeholder="GTIN / EAN-13 / RMS / Barcode…"
               class="flex-1 h-11 text-sm font-semibold text-slate-700 placeholder:text-slate-300 placeholder:font-normal bg-transparent outline-none" style="font-family:var(--font-mono)">
           </div>
           <div class="grid grid-cols-2 gap-2.5 mt-3">
-            <button id="btnCamera" class="press h-11 bg-teal-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 tracking-tight" style="box-shadow:var(--shadow-teal)">
-              📷 Camera Scan
-            </button>
-            <button id="btnPaste" class="press h-11 bg-slate-50 text-slate-600 rounded-xl text-sm font-semibold flex items-center justify-center gap-1.5 border border-slate-200">
-              📋 Bulk Paste
-            </button>
+            <button id="btnCamera" class="press h-11 bg-teal-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-1.5" style="box-shadow:var(--shadow-teal)">📷 Camera</button>
+            <button id="btnPaste" class="press h-11 bg-slate-50 text-slate-600 rounded-xl text-sm font-semibold flex items-center justify-center gap-1.5 border border-slate-200">📋 Bulk Paste</button>
           </div>
         </div>
 
-        <!-- Supplier Filter Quick Access -->
-        <div class="bg-white rounded-xl border border-slate-100 p-3" style="box-shadow:var(--shadow-xs)">
-          <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-2">Quick Filter by Supplier</p>
-          <div id="supplierQuickFilter" class="flex gap-1.5 overflow-x-auto pb-1">
-            <button class="supplier-chip flex-shrink-0 text-2xs font-semibold px-2.5 py-1 rounded-full bg-teal-500 text-white" data-supplier="">All</button>
-          </div>
-        </div>
-
-        <!-- Stats -->
+        <!-- Stats strip -->
         <div class="grid grid-cols-3 gap-2.5">
           <div class="bg-white rounded-xl border border-teal-100 p-3 text-center" style="box-shadow:var(--shadow-xs)">
             <div id="statTotal" class="text-2xl font-extrabold text-teal-500 leading-none mb-1">0</div>
@@ -212,56 +248,47 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <p class="text-2xs font-bold tracking-widest uppercase text-slate-400">Recent Scans</p>
-            <button id="btnViewAll" class="text-xs font-semibold text-teal-600 press">View All →</button>
+            <button id="btnViewAll" class="press text-xs font-semibold text-teal-600">View All →</button>
           </div>
           <div id="recentList" class="space-y-2"></div>
         </div>
       </div>
     </div>
 
-    <!-- HISTORY PAGE -->
+    <!-- ── HISTORY PAGE ── -->
     <div class="page absolute inset-0 overflow-y-auto" id="pageHistory" style="display:none;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))">
       <div class="p-4 space-y-3">
+        <!-- Search -->
         <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition-all" style="box-shadow:var(--shadow-xs)">
           <svg class="text-slate-300 flex-shrink-0" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="6.5" cy="6.5" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <input id="searchInput" type="text" placeholder="Search product, barcode, batch, supplier…" class="flex-1 h-10 text-sm text-slate-700 placeholder:text-slate-300 bg-transparent outline-none">
+          <input id="searchInput" type="text" placeholder="Search product, barcode, supplier, batch…" class="flex-1 h-10 text-sm text-slate-700 placeholder:text-slate-300 bg-transparent outline-none">
           <button id="btnSearchClear" class="text-slate-400 text-xs font-semibold" style="display:none">✕</button>
         </div>
+        <!-- Filter chips -->
         <div class="chips-row flex gap-1.5 overflow-x-auto pb-0.5" id="filterChips">
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-teal-500 text-white border border-teal-500" data-filter="all">All</button>
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="expired">Expired</button>
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="expiring">Expiring</button>
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="good">Good</button>
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="sold">SOLD</button>
-          <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="return">RETURN</button>
-          <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="damage">DAMAGE</button>
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="removed">REMOVED</button>
           <button class="chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200" data-filter="pending">Pending</button>
-        </div>
-        <!-- Supplier Filter Dropdown -->
-        <div>
-          <select id="supplierFilterSelect" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-sm text-slate-700 outline-none focus:border-teal-400">
-            <option value="">All Suppliers</option>
-          </select>
         </div>
         <div id="historyList" class="space-y-2"></div>
       </div>
     </div>
 
-    <!-- DASHBOARD PAGE -->
+    <!-- ── DASHBOARD PAGE ── -->
     <div class="page absolute inset-0 overflow-y-auto" id="pageDashboard" style="display:none;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))">
       <div class="p-4 space-y-4">
         <div>
           <h1 class="text-2xl font-extrabold text-slate-800 tracking-tighter leading-tight">Expiry <span class="text-teal-500">Report</span></h1>
-          <p class="text-xs text-slate-400 mt-0.5 font-medium">Boots T3 · Store 30762 · Dubai</p>
+          <p class="text-xs text-slate-400 mt-0.5 font-medium">Boots Oasis · Store 30762 · Dubai</p>
         </div>
         <div class="grid grid-cols-2 gap-2.5">
           <div class="col-span-2 bg-teal-500 rounded-2xl p-4 flex items-center justify-between" style="box-shadow:var(--shadow-teal)">
-            <div>
-              <div id="dashTotal" class="text-4xl font-extrabold text-white leading-none">0</div>
-              <div class="text-teal-100 text-xs font-bold tracking-widest uppercase mt-1">Total Items Tracked</div>
-            </div>
-            <div class="text-5xl opacity-30"></div>
+            <div><div id="dashTotal" class="text-4xl font-extrabold text-white leading-none">0</div><div class="text-teal-100 text-xs font-bold tracking-widest uppercase mt-1">Total Items Tracked</div></div>
+            <div class="text-5xl opacity-20">💊</div>
           </div>
           <div class="bg-white rounded-xl border border-slate-100 p-4" style="box-shadow:var(--shadow-xs)">
             <div id="dashQty" class="text-3xl font-extrabold text-slate-700 leading-none mb-1">0</div>
@@ -272,55 +299,33 @@
             <div class="text-2xs font-bold tracking-widest uppercase text-amber-500">Expiring ≤90d</div>
           </div>
           <div class="col-span-2 bg-danger-50 rounded-xl border border-danger-100 p-4 flex items-center justify-between" style="box-shadow:var(--shadow-xs)">
-            <div>
-              <div id="dashExpired" class="text-3xl font-extrabold text-danger-500 leading-none mb-1">0</div>
-              <div class="text-2xs font-bold tracking-widest uppercase text-danger-600">Expired — Action Required</div>
-            </div>
+            <div><div id="dashExpired" class="text-3xl font-extrabold text-danger-500 leading-none mb-1">0</div><div class="text-2xs font-bold tracking-widest uppercase text-danger-600">Expired — Action Required</div></div>
             <span class="text-3xl opacity-40">⚠️</span>
           </div>
         </div>
-        <!-- Supplier Breakdown -->
-        <div class="bg-white rounded-2xl border border-slate-100 p-4" style="box-shadow:var(--shadow-sm)">
-          <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-3">Inventory by Supplier</p>
-          <div id="supplierBreakdown" class="space-y-2"><p class="text-sm text-slate-400 text-center py-4">No data yet</p></div>
-        </div>
+        <!-- Month breakdown -->
         <div class="bg-white rounded-2xl border border-slate-100 p-4" style="box-shadow:var(--shadow-sm)">
           <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-3">Expiry by Month</p>
           <div id="monthBreakdown" class="space-y-2.5"><p class="text-sm text-slate-400 text-center py-4">No data yet</p></div>
         </div>
+        <!-- Status -->
         <div class="bg-white rounded-2xl border border-slate-100 p-4" style="box-shadow:var(--shadow-sm)">
           <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-3">Status Breakdown</p>
           <div class="divide-y divide-slate-100">
-            <div class="flex items-center justify-between py-2.5">
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-slate-300"></span>Pending</div>
-              <span id="dashPending" class="font-mono font-bold text-sm text-slate-700">0</span>
-            </div>
-            <div class="flex items-center justify-between py-2.5">
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>Sold</div>
-              <span id="dashSold" class="font-mono font-bold text-sm text-emerald-600">0</span>
-            </div>
-            <div class="flex items-center justify-between py-2.5">
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Return</div>
-              <span id="dashReturn" class="font-mono font-bold text-sm text-amber-600">0</span>
-            </div>
-            <div class="flex items-center justify-between py-2.5">
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-danger-500"></span>Damage</div>
-              <span id="dashDamage" class="font-mono font-bold text-sm text-danger-500">0</span>
-            </div>
-            <div class="flex items-center justify-between py-2.5">
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-danger-500"></span>Removed</div>
-              <span id="dashRemoved" class="font-mono font-bold text-sm text-danger-500">0</span>
-            </div>
+            <div class="flex items-center justify-between py-2.5"><div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-slate-300"></span>Pending</div><span id="dashPending" class="font-mono font-bold text-sm text-slate-700">0</span></div>
+            <div class="flex items-center justify-between py-2.5"><div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>Sold</div><span id="dashSold" class="font-mono font-bold text-sm text-emerald-600">0</span></div>
+            <div class="flex items-center justify-between py-2.5"><div class="flex items-center gap-2 text-sm text-slate-600 font-medium"><span class="w-2 h-2 rounded-full bg-danger-500"></span>Removed</div><span id="dashRemoved" class="font-mono font-bold text-sm text-danger-500">0</span></div>
           </div>
         </div>
+        <!-- Export -->
         <div class="bg-white rounded-2xl border border-slate-100 p-4" style="box-shadow:var(--shadow-sm)">
           <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1">Export</p>
           <p class="text-xs text-slate-400 mb-3">BARCODE · RMS · DESCRIPTION · EXPIRY · BATCH · SUPPLIER</p>
           <div class="space-y-2">
             <button id="btnExportTSV" class="press w-full h-11 bg-teal-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2" style="box-shadow:var(--shadow-teal)">📤 Export TSV (Excel-ready)</button>
             <div class="grid grid-cols-2 gap-2">
-              <button id="btnExportCSV" class="press h-10 bg-slate-50 text-slate-600 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-center gap-1.5">📄 Export CSV</button>
-              <button id="btnExportJSON" class="press h-10 bg-slate-50 text-slate-600 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-center gap-1.5">💾 Backup JSON</button>
+              <button id="btnExportCSV" class="press h-10 bg-slate-50 text-slate-600 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-center gap-1">📄 Export CSV</button>
+              <button id="btnExportJSON" class="press h-10 bg-slate-50 text-slate-600 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-center gap-1">💾 Backup JSON</button>
             </div>
           </div>
         </div>
@@ -331,21 +336,21 @@
   <!-- BOTTOM NAV -->
   <nav class="flex-shrink-0 bg-white border-t border-slate-200 flex items-start" style="padding-top:6px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -1px 12px -4px rgb(0 0 0 / 0.06)">
     <button class="nav-tab flex-1 flex flex-col items-center gap-1" data-page="pageScan">
-      <span class="nav-icon text-xl leading-none transition-all duration-200">📷</span>
-      <span class="nav-label text-2xs font-bold tracking-widest uppercase transition-colors duration-200 text-teal-500">Scan</span>
+      <span class="nav-icon text-xl leading-none" style="transition:filter 0.2s">📷</span>
+      <span class="nav-label text-2xs font-bold tracking-widest uppercase text-teal-500" style="transition:color 0.2s">Scan</span>
     </button>
     <button class="nav-tab flex-1 flex flex-col items-center gap-1" data-page="pageHistory">
-      <span class="nav-icon text-xl leading-none transition-all duration-200" style="filter:grayscale(1) opacity(0.4)">📋</span>
-      <span class="nav-label text-2xs font-bold tracking-widest uppercase transition-colors duration-200 text-slate-400">History</span>
+      <span class="nav-icon text-xl leading-none" style="filter:grayscale(1) opacity(0.4);transition:filter 0.2s">📋</span>
+      <span class="nav-label text-2xs font-bold tracking-widest uppercase text-slate-400" style="transition:color 0.2s">History</span>
     </button>
     <button class="nav-tab flex-1 flex flex-col items-center gap-1" data-page="pageDashboard">
-      <span class="nav-icon text-xl leading-none transition-all duration-200" style="filter:grayscale(1) opacity(0.4)">📊</span>
-      <span class="nav-label text-2xs font-bold tracking-widest uppercase transition-colors duration-200 text-slate-400">Dashboard</span>
+      <span class="nav-icon text-xl leading-none" style="filter:grayscale(1) opacity(0.4);transition:filter 0.2s">📊</span>
+      <span class="nav-label text-2xs font-bold tracking-widest uppercase text-slate-400" style="transition:color 0.2s">Dashboard</span>
     </button>
   </nav>
 </div>
 
-<!-- CAMERA -->
+<!-- ══════════════════════════════════════════════════════ CAMERA ══ -->
 <div id="cameraView" class="fixed inset-0 bg-black z-50 flex-col" style="display:none">
   <video id="cameraVideo" class="w-full object-cover" style="height:100dvh" playsinline muted></video>
   <div class="absolute inset-0 flex flex-col items-center justify-center">
@@ -359,11 +364,1377 @@
     <p class="text-white/70 text-sm mt-5 font-medium">Position barcode within frame</p>
   </div>
   <div id="cameraDetected" class="absolute bottom-20 left-1/2 -translate-x-1/2 bg-teal-400 text-white text-sm font-bold px-5 py-2.5 rounded-full whitespace-nowrap" style="display:none;box-shadow:var(--shadow-teal)"></div>
-  <button id="btnCameraClose" class="absolute right-4 w-10 h-10 bg-black/50 backdrop-blur rounded-full text-white text-lg flex items-center justify-center" style="top:calc(16px + env(safe-area-inset-top,0px))">✕</button>
+  <button id="btnCameraClose" class="absolute right-4 w-10 h-10 bg-black/50 backdrop-blur rounded-full text-white flex items-center justify-center" style="top:calc(16px + env(safe-area-inset-top,0px));font-size:18px">✕</button>
 </div>
 
 <!-- OVERLAY -->
 <div id="overlay" class="overlay fixed inset-0 z-30" style="background:rgba(15,23,42,0.35);backdrop-filter:blur(3px)"></div>
 
-<!-- SCAN SHEET -->
-<div id="scanSheet" class="sheet
+<!-- ══════════════════════════════════════════════════════ SCAN SHEET ══ -->
+<div id="scanSheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-40 flex flex-col" style="max-height:96dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+
+  <!-- Product header -->
+  <div class="px-5 pt-3 pb-3 flex-shrink-0 border-b border-slate-100">
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0 flex-1">
+        <div id="scanSheetTitle" class="text-base font-bold text-slate-800 leading-snug">Product Found</div>
+        <div id="scanSheetSub" class="text-xs font-mono text-slate-400 mt-0.5"></div>
+      </div>
+      <div id="matchBadge" class="flex-shrink-0 text-2xs font-bold px-2 py-1 rounded-lg bg-emerald-100 text-emerald-700" style="display:none">EXACT</div>
+    </div>
+    <!-- Supplier info from master -->
+    <div id="masterSupplierInfo" class="mt-2 flex items-center gap-1.5" style="display:none">
+      <span class="text-2xs">🏭</span>
+      <span id="masterSupplierText" class="text-xs font-semibold text-violet-600"></span>
+    </div>
+  </div>
+
+  <!-- Tabs: Known / Unknown Protocol -->
+  <div id="scanTabBar" class="flex border-b border-slate-100 flex-shrink-0" style="display:none">
+    <button class="scan-tab flex-1 py-2.5 text-xs font-bold tracking-wide border-b-2 border-teal-500 text-teal-600" data-tab="details">📦 Details</button>
+    <button class="scan-tab flex-1 py-2.5 text-xs font-bold tracking-wide border-b-2 border-transparent text-slate-400" data-tab="supplier">🏭 Supplier Info</button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto">
+    <!-- TAB: DETAILS -->
+    <div id="tabDetails" class="px-5 py-4 space-y-3.5">
+
+      <!-- Unknown product protocol banner -->
+      <div id="unknownBanner" class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-2.5" style="display:none">
+        <span class="text-lg flex-shrink-0">⚠️</span>
+        <div>
+          <div class="text-xs font-bold text-amber-700 mb-0.5">Unknown Product — Fill Protocol</div>
+          <div class="text-2xs text-amber-600">This barcode is not in master data. Please complete all fields below and select a supplier.</div>
+        </div>
+      </div>
+
+      <!-- Product name -->
+      <div>
+        <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Product Description *</label>
+        <input id="inputName" type="text" placeholder="Enter product name"
+          class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3.5 text-sm font-semibold text-slate-800 placeholder:text-slate-300 placeholder:font-normal outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all">
+      </div>
+
+      <!-- Barcode + RMS row -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Barcode</label>
+          <input id="inputBarcode" type="text" readonly
+            class="w-full h-11 bg-slate-100 border border-slate-200 rounded-xl px-3 text-sm text-slate-600 outline-none cursor-default" style="font-family:var(--font-mono)">
+        </div>
+        <div>
+          <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">RMS Code</label>
+          <input id="inputRMS" type="text" placeholder="Optional"
+            class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-sm text-slate-800 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all" style="font-family:var(--font-mono)">
+        </div>
+      </div>
+
+      <!-- Expiry date picker trigger + Batch -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="flex items-center gap-1.5 text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">
+            Expiry (MM/YYYY) <span id="expiryAutoTag" class="bg-teal-100 text-teal-600 text-2xs px-1.5 py-0.5 rounded font-bold" style="display:none">AUTO</span>
+          </label>
+          <button id="expiryTrigger" type="button"
+            class="press w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-left flex items-center justify-between gap-2 transition-all hover:border-teal-300">
+            <span id="expiryDisplay" class="text-sm font-semibold text-slate-400" style="font-family:var(--font-mono)">Select month…</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-slate-300 flex-shrink-0"><rect x="1" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M4 1v2M10 1v2M1 6h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <input id="inputExpiry" type="hidden">
+        </div>
+        <div>
+          <label class="flex items-center gap-1.5 text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">
+            Batch No. <span id="batchAutoTag" class="bg-teal-100 text-teal-600 text-2xs px-1.5 py-0.5 rounded font-bold" style="display:none">AUTO</span>
+          </label>
+          <input id="inputBatch" type="text" placeholder="Batch / Lot"
+            class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-sm text-slate-800 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all" style="font-family:var(--font-mono)">
+        </div>
+      </div>
+
+      <!-- Supplier with autocomplete -->
+      <div class="relative">
+        <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Supplier / Brand</label>
+        <input id="inputSupplier" type="text" placeholder="Type to search or enter supplier…"
+          autocomplete="off"
+          class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3.5 text-sm text-slate-800 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all">
+        <div id="supplierDropdown" class="absolute left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 overflow-hidden z-10" style="box-shadow:var(--shadow-lg);display:none;max-height:160px;overflow-y:auto">
+        </div>
+      </div>
+
+      <!-- Quantity -->
+      <div>
+        <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Quantity</label>
+        <div class="flex items-center gap-2.5">
+          <button id="btnQtyMinus" class="press w-11 h-11 bg-slate-100 border border-slate-200 rounded-xl text-xl font-bold text-slate-500 flex items-center justify-center flex-shrink-0">−</button>
+          <input id="inputQty" type="number" value="1" min="1"
+            class="flex-1 h-11 bg-slate-50 border border-slate-200 rounded-xl text-center text-xl font-extrabold text-teal-600 outline-none focus:border-teal-400" style="font-family:var(--font-mono)">
+          <button id="btnQtyPlus" class="press w-11 h-11 bg-teal-500 rounded-xl text-xl font-bold text-white flex items-center justify-center flex-shrink-0" style="box-shadow:var(--shadow-teal)">+</button>
+        </div>
+      </div>
+
+      <!-- Return Status -->
+      <div>
+        <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Return Status</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button id="optPending" data-val="" class="remarks-opt h-10 rounded-xl text-xs font-bold border bg-slate-100 border-slate-200 text-slate-600">Pending</button>
+          <button id="optSold" data-val="SOLD" class="remarks-opt h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-400">✓ Sold</button>
+          <button id="optRemoved" data-val="REMOVED" class="remarks-opt h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-400">✗ Removed</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: SUPPLIER INFO -->
+    <div id="tabSupplier" class="px-5 py-4" style="display:none">
+      <div id="supplierInfoPanel" class="space-y-3">
+        <p class="text-sm text-slate-400 text-center py-8">No supplier information available for this product in master data.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-2.5 px-5 flex-shrink-0 border-t border-slate-100" style="padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnScanCancel" class="press flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold">Cancel</button>
+    <button id="btnScanSave" class="press flex-1 h-12 bg-teal-500 text-white rounded-xl text-sm font-bold" style="box-shadow:var(--shadow-teal)">Save Item</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ EXPIRY PICKER ══ -->
+<div id="expirySheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 flex flex-col" style="max-height:70dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+  <div class="px-5 pt-3 pb-3 flex-shrink-0 border-b border-slate-100 flex items-center justify-between">
+    <div>
+      <div class="text-base font-bold text-slate-800">📅 Select Expiry Date</div>
+      <div class="text-xs text-slate-400 mt-0.5">Month / Year only</div>
+    </div>
+    <div id="expiryPickerSelected" class="font-mono text-sm font-bold text-teal-600 bg-teal-50 border border-teal-100 px-3 py-1.5 rounded-xl">—</div>
+  </div>
+  <div class="flex-1 overflow-y-auto px-5 py-4">
+    <!-- Year selector -->
+    <div class="flex items-center justify-between mb-4">
+      <button id="btnYearPrev" class="press w-9 h-9 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 text-lg font-bold">‹</button>
+      <div class="flex gap-2" id="yearOptions"></div>
+      <button id="btnYearNext" class="press w-9 h-9 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 text-lg font-bold">›</button>
+    </div>
+    <!-- Month grid -->
+    <div class="grid grid-cols-4 gap-2" id="monthGrid"></div>
+    <!-- Quick options -->
+    <div class="mt-4 pt-4 border-t border-slate-100">
+      <p class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-2">Quick Select</p>
+      <div class="flex flex-wrap gap-2" id="quickMonths"></div>
+    </div>
+  </div>
+  <div class="flex gap-2.5 px-5 flex-shrink-0 border-t border-slate-100" style="padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnExpiryCancel" class="press flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold">Cancel</button>
+    <button id="btnExpiryConfirm" class="press flex-1 h-12 bg-teal-500 text-white rounded-xl text-sm font-bold" style="box-shadow:var(--shadow-teal)">Confirm Date</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ TEMPLATE SHEET ══ -->
+<div id="templateSheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-40 flex flex-col" style="max-height:80dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+  <div class="px-5 pt-3 pb-3 flex-shrink-0 border-b border-slate-100">
+    <div class="text-base font-bold text-slate-800">📋 Session Template</div>
+    <div class="text-xs text-slate-400 mt-0.5">Pre-fill fields for this scanning session</div>
+  </div>
+  <div class="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+    <!-- Template supplier -->
+    <div class="relative">
+      <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Default Supplier / Brand</label>
+      <input id="tmplSupplier" type="text" placeholder="Type to search suppliers…" autocomplete="off"
+        class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3.5 text-sm text-slate-800 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all">
+      <div id="tmplSupplierDropdown" class="absolute left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 overflow-hidden z-10" style="box-shadow:var(--shadow-lg);display:none;max-height:140px;overflow-y:auto"></div>
+    </div>
+    <!-- Template batch prefix -->
+    <div>
+      <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Default Batch Prefix</label>
+      <input id="tmplBatch" type="text" placeholder="e.g. BG2024 (optional)"
+        class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3.5 text-sm text-slate-800 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all" style="font-family:var(--font-mono)">
+    </div>
+    <!-- Template expiry -->
+    <div>
+      <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Default Expiry</label>
+      <button id="tmplExpiryTrigger" type="button"
+        class="press w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-left flex items-center justify-between gap-2">
+        <span id="tmplExpiryDisplay" class="text-sm font-semibold text-slate-400" style="font-family:var(--font-mono)">Select month…</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-slate-300 flex-shrink-0"><rect x="1" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M4 1v2M10 1v2M1 6h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+      <input id="tmplExpiry" type="hidden">
+    </div>
+    <!-- Template default status -->
+    <div>
+      <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Default Return Status</label>
+      <div class="grid grid-cols-3 gap-2">
+        <button class="tmpl-status-opt press h-10 rounded-xl text-xs font-bold border bg-slate-100 border-slate-200 text-slate-600" data-val="">Pending</button>
+        <button class="tmpl-status-opt press h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-400" data-val="SOLD">✓ Sold</button>
+        <button class="tmpl-status-opt press h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-400" data-val="REMOVED">✗ Removed</button>
+      </div>
+    </div>
+    <!-- Active template display -->
+    <div id="activeTemplateBox" class="bg-amber-50 border border-amber-200 rounded-xl p-3" style="display:none">
+      <p class="text-2xs font-bold tracking-widest uppercase text-amber-500 mb-1.5">Active Template</p>
+      <div id="activeTemplateText" class="text-xs text-amber-700 space-y-0.5"></div>
+    </div>
+  </div>
+  <div class="flex gap-2.5 px-5 flex-shrink-0 border-t border-slate-100" style="padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnTemplateClear" class="press h-12 px-4 bg-slate-100 text-slate-500 rounded-xl text-sm font-semibold">Clear</button>
+    <button id="btnTemplateCancel" class="press flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold">Cancel</button>
+    <button id="btnTemplateApply" class="press flex-1 h-12 bg-amber-500 text-white rounded-xl text-sm font-bold">Apply Template</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ EDIT SHEET ══ -->
+<div id="editSheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-40 flex flex-col" style="max-height:96dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+  <div class="px-5 pt-3 pb-3 flex-shrink-0 border-b border-slate-100 flex items-center justify-between">
+    <div>
+      <div class="text-base font-bold text-slate-800">✏️ Edit Item</div>
+      <div id="editSheetSub" class="text-xs font-mono text-slate-400 mt-0.5"></div>
+    </div>
+    <button id="btnEditDelete" class="press flex items-center gap-1.5 px-3 h-8 bg-danger-50 border border-danger-100 text-danger-500 rounded-lg text-xs font-bold">🗑 Delete</button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-5 py-4 space-y-3.5">
+    <div><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Product Description</label>
+      <input id="editName" type="text" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3.5 text-sm font-semibold text-slate-800 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all"></div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="block text-2xs font-bold tracking-widests uppercase text-slate-400 mb-1.5">Barcode</label>
+        <input id="editBarcode" type="text" class="w-full h-11 bg-slate-100 border border-slate-200 rounded-xl px-3 text-sm text-slate-500 outline-none cursor-default" readonly style="font-family:var(--font-mono)"></div>
+      <div><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">RMS Code</label>
+        <input id="editRMS" type="text" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-sm text-slate-800 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all" style="font-family:var(--font-mono)"></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Expiry (MM/YYYY)</label>
+        <button id="editExpiryTrigger" type="button" class="press w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-left flex items-center justify-between gap-2">
+          <span id="editExpiryDisplay" class="text-sm font-semibold text-slate-400" style="font-family:var(--font-mono)">Select…</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-slate-300 flex-shrink-0"><rect x="1" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M4 1v2M10 1v2M1 6h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </button>
+        <input id="editExpiry" type="hidden"></div>
+      <div><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Batch No.</label>
+        <input id="editBatch" type="text" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-sm text-slate-800 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all" style="font-family:var(--font-mono)"></div>
+    </div>
+    <div class="relative"><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Supplier / Brand</label>
+      <input id="editSupplier" type="text" autocomplete="off" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3.5 text-sm text-slate-800 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all">
+      <div id="editSupplierDropdown" class="absolute left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 overflow-hidden z-10" style="box-shadow:var(--shadow-lg);display:none;max-height:140px;overflow-y:auto"></div>
+    </div>
+    <div><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Quantity</label>
+      <div class="flex items-center gap-2.5">
+        <button id="btnEditQtyMinus" class="press w-11 h-11 bg-slate-100 border border-slate-200 rounded-xl text-xl font-bold text-slate-500 flex items-center justify-center">−</button>
+        <input id="editQty" type="number" min="1" class="flex-1 h-11 bg-slate-50 border border-slate-200 rounded-xl text-center text-xl font-extrabold text-teal-600 outline-none" style="font-family:var(--font-mono)">
+        <button id="btnEditQtyPlus" class="press w-11 h-11 bg-teal-500 rounded-xl text-xl font-bold text-white flex items-center justify-center" style="box-shadow:var(--shadow-teal)">+</button>
+      </div>
+    </div>
+    <div><label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Return Status</label>
+      <div class="grid grid-cols-3 gap-2">
+        <button id="editOptPending" data-val="" class="edit-status-opt h-10 rounded-xl text-xs font-bold border bg-slate-100 border-slate-200 text-slate-600">Pending</button>
+        <button id="editOptSold" data-val="SOLD" class="edit-status-opt h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-400">✓ Sold</button>
+        <button id="editOptRemoved" data-val="REMOVED" class="edit-status-opt h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-400">✗ Removed</button>
+      </div>
+    </div>
+  </div>
+  <div class="flex gap-2.5 px-5 flex-shrink-0 border-t border-slate-100" style="padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnEditCancel" class="press flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold">Cancel</button>
+    <button id="btnEditSave" class="press flex-1 h-12 bg-teal-500 text-white rounded-xl text-sm font-bold" style="box-shadow:var(--shadow-teal)">Save Changes</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PASTE SHEET ══ -->
+<div id="pasteSheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-40 flex flex-col" style="max-height:80dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+  <div class="px-5 pt-3 pb-3 flex-shrink-0 border-b border-slate-100">
+    <div class="text-base font-bold text-slate-800">📋 Bulk Paste</div>
+    <div class="text-xs text-slate-400 mt-0.5">One GS1 barcode per line — template defaults apply</div>
+  </div>
+  <div class="flex-1 px-5 py-4">
+    <textarea id="pasteTextarea" placeholder="Paste barcodes here…&#10;(01)06297001031292(17)260131(10)BG24025A&#10;6297001031292"
+      class="w-full h-36 bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs text-slate-700 placeholder:text-slate-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 resize-none transition-all" style="font-family:var(--font-mono)"></textarea>
+    <div id="pasteStats" class="mt-3 p-3 bg-teal-50 border border-teal-100 rounded-xl text-xs text-teal-700 font-semibold" style="display:none"></div>
+  </div>
+  <div class="flex gap-2.5 px-5 flex-shrink-0 border-t border-slate-100" style="padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnPasteCancel" class="press flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold">Cancel</button>
+    <button id="btnPasteProcess" class="press flex-1 h-12 bg-teal-500 text-white rounded-xl text-sm font-bold" style="box-shadow:var(--shadow-teal)">Process All</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PIN SHEET ══ -->
+<div id="pinSheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-40 flex flex-col" style="max-height:72dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+  <div class="px-5 pt-3 pb-2 flex-shrink-0 border-b border-slate-100 text-center">
+    <div class="text-base font-bold text-slate-800">🔐 PIN Required</div>
+    <div id="pinReason" class="text-xs text-slate-400 mt-0.5">Enter 4-digit PIN</div>
+  </div>
+  <div class="flex-1 px-5 py-4">
+    <div id="pinDots" class="flex justify-center gap-4 mb-5">
+      <div id="dot0" class="w-4 h-4 rounded-full border-2 border-slate-300" style="transition:all 0.12s"></div>
+      <div id="dot1" class="w-4 h-4 rounded-full border-2 border-slate-300" style="transition:all 0.12s"></div>
+      <div id="dot2" class="w-4 h-4 rounded-full border-2 border-slate-300" style="transition:all 0.12s"></div>
+      <div id="dot3" class="w-4 h-4 rounded-full border-2 border-slate-300" style="transition:all 0.12s"></div>
+    </div>
+    <div class="grid grid-cols-3 gap-2">
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="1">1</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="2">2</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="3">3</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="4">4</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="5">5</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="6">6</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="7">7</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="8">8</button>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="9">9</button>
+      <div></div>
+      <button class="pin-key press h-14 bg-slate-50 border border-slate-200 rounded-xl text-xl font-bold text-slate-700 hover:bg-teal-50 hover:border-teal-200 transition-colors" data-key="0">0</button>
+      <button id="pinDelete" class="press h-14 bg-slate-50 border border-slate-200 rounded-xl text-base font-semibold text-slate-400">⌫</button>
+    </div>
+  </div>
+  <div class="px-5 flex-shrink-0" style="padding-top:8px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnPinCancel" class="press w-full h-11 bg-slate-100 text-slate-500 rounded-xl text-sm font-semibold">Cancel</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ SETTINGS SHEET ══ -->
+<div id="settingsSheet" class="sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-40 flex flex-col" style="max-height:78dvh;box-shadow:var(--shadow-xl)">
+  <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-3 flex-shrink-0"></div>
+  <div class="px-5 pt-3 pb-3 flex-shrink-0 border-b border-slate-100">
+    <div class="text-base font-bold text-slate-800">📁 Upload Master Data</div>
+    <div class="text-xs text-slate-400 mt-0.5">CSV/TSV — Barcode · Name · Supplier columns</div>
+  </div>
+  <div class="flex-1 px-5 py-4 space-y-4 overflow-y-auto">
+    <div id="fileDrop" class="border-2 border-dashed border-slate-200 rounded-2xl p-7 text-center cursor-pointer hover:border-teal-300 hover:bg-teal-50 transition-all">
+      <div class="text-3xl mb-2">📁</div>
+      <div id="fileDropText" class="text-sm font-semibold text-slate-500">Tap to choose CSV / TSV file</div>
+      <div class="text-xs text-slate-400 mt-1">Columns: Barcode, Name, Supplier (optional)</div>
+    </div>
+    <input type="file" id="fileInput" accept=".csv,.tsv,.txt" style="display:none">
+    <div>
+      <label class="block text-2xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">Upload Mode</label>
+      <div class="grid grid-cols-3 gap-2">
+        <button id="modeReplace" class="press h-10 rounded-xl text-xs font-bold border bg-teal-500 text-white border-teal-500">Replace</button>
+        <button id="modeAppend" class="press h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-500">Append</button>
+        <button id="modeTemplate" class="press h-10 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-500">Template</button>
+      </div>
+    </div>
+    <div id="uploadPreview" class="p-3 bg-teal-50 border border-teal-100 rounded-xl text-xs text-teal-700 font-semibold" style="display:none"></div>
+    <!-- Suppliers from master -->
+    <div id="masterSupplierList" style="display:none">
+      <label class="block text-2xs font-bold tracking-widests uppercase text-slate-400 mb-2">Suppliers in Master</label>
+      <div id="masterSupplierTags" class="flex flex-wrap gap-1.5"></div>
+    </div>
+  </div>
+  <div class="flex gap-2.5 px-5 flex-shrink-0 border-t border-slate-100" style="padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))">
+    <button id="btnSettingsCancel" class="press flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold">Cancel</button>
+    <button id="btnSettingsUpload" class="press flex-1 h-12 bg-teal-500 text-white rounded-xl text-sm font-bold opacity-40 cursor-not-allowed" disabled style="box-shadow:var(--shadow-teal)">Upload</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ SIDE MENU ══ -->
+<div id="sideMenu" class="side-menu fixed top-0 right-0 w-72 bg-white border-l border-slate-200 z-50 flex flex-col" style="height:100dvh;box-shadow:var(--shadow-xl)">
+  <div class="px-5 border-b border-slate-100" style="padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:16px">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 bg-teal-500 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style="box-shadow:var(--shadow-teal)">💊</div>
+      <div><div class="text-sm font-bold text-slate-800">PharmaScan Pro</div><div class="text-xs text-slate-400 font-medium">Store 30762 · Boots Oasis</div></div>
+    </div>
+  </div>
+  <div class="flex-1 overflow-y-auto py-2">
+    <p class="px-5 pt-3 pb-1 text-2xs font-bold tracking-widest uppercase text-slate-400">Database</p>
+    <div class="flex items-center justify-between px-5 py-3"><span class="text-sm text-slate-600 font-medium">📦 Products in Master</span><span id="menuMasterCount" class="font-mono text-xs font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">0</span></div>
+    <div class="flex items-center justify-between px-5 py-3"><span class="text-sm text-slate-600 font-medium">📋 Scan Records</span><span id="menuScanCount" class="font-mono text-xs font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">0</span></div>
+    <div class="flex items-center justify-between px-5 py-3"><span class="text-sm text-slate-600 font-medium">🏭 Unique Suppliers</span><span id="menuSupplierCount" class="font-mono text-xs font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">0</span></div>
+    <p class="px-5 pt-3 pb-1 text-2xs font-bold tracking-widest uppercase text-slate-400">Actions</p>
+    <button id="menuUpload" class="press w-full px-5 py-3 flex items-center gap-3 text-sm text-slate-600 font-medium hover:bg-slate-50"><span class="w-8 h-8 bg-teal-50 border border-teal-100 rounded-lg flex items-center justify-center">📁</span>Upload Master CSV</button>
+    <button id="menuRestoreJSON" class="press w-full px-5 py-3 flex items-center gap-3 text-sm text-slate-600 font-medium hover:bg-slate-50"><span class="w-8 h-8 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center">⬆️</span>Restore Backup</button>
+    <p class="px-5 pt-3 pb-1 text-2xs font-bold tracking-widest uppercase text-slate-400">Export</p>
+    <button id="menuExportTSV" class="press w-full px-5 py-3 flex items-center gap-3 text-sm text-slate-600 font-medium hover:bg-slate-50"><span class="w-8 h-8 bg-teal-50 border border-teal-100 rounded-lg flex items-center justify-center">📤</span>Export TSV</button>
+    <button id="menuExportCSV" class="press w-full px-5 py-3 flex items-center gap-3 text-sm text-slate-600 font-medium hover:bg-slate-50"><span class="w-8 h-8 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center">📄</span>Export CSV</button>
+    <button id="menuExportJSON" class="press w-full px-5 py-3 flex items-center gap-3 text-sm text-slate-600 font-medium hover:bg-slate-50"><span class="w-8 h-8 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center">💾</span>Backup JSON</button>
+    <p class="px-5 pt-3 pb-1 text-2xs font-bold tracking-widest uppercase text-slate-400">Danger Zone</p>
+    <button id="menuClearHistory" class="press w-full px-5 py-3 flex items-center gap-3 text-sm font-medium hover:bg-danger-50" style="color:oklch(0.62 0.21 25)">
+      <span class="w-8 h-8 border rounded-lg flex items-center justify-center" style="background:oklch(0.97 0.013 25);border-color:oklch(0.93 0.032 25)">🗑️</span>Clear All History
+    </button>
+  </div>
+</div>
+
+<!-- Toasts -->
+<div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+<input type="file" id="restoreInput" accept=".json" style="display:none">
+
+<!-- ══════════════════════════════════════════════════════ JAVASCRIPT ══ -->
+<script>
+'use strict';
+
+/* ─── CONFIG ─────────────────────────────── */
+const CFG = {
+  storeNo: 30762, storeName: 'BOOTS OASIS',
+  pin: '9633', dbName: 'pharmascan_db', dbVersion: 7,
+  exportFile: 'boots-oasis', apiEnabled: true
+};
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ─── STATE ─────────────────────────────── */
+let S = {
+  history: [], master: [], masterIndex: new Map(), supplierSet: new Set(),
+  filter: 'all', searchQuery: '',
+  pendingBarcode: null, pendingGs1: null, pendingMatchData: null,
+  selectedRemarks: '', selectedEditRemarks: '',
+  editItemId: null,
+  pinCallback: null, pinBuffer: '',
+  uploadMode: 'replace', uploadData: null,
+  cameraStream: null, scanDebounce: null,
+  // Expiry picker
+  pickerTarget: null, pickerYear: new Date().getFullYear(), pickerMonth: null,
+  tmplPickerOpen: false, editPickerOpen: false,
+  // Template
+  template: { supplier: '', batch: '', expiry: '', status: '' },
+  templateActive: false,
+  // Upload mode: replace/append/template
+};
+
+/* ─── DB ─────────────────────────────────── */
+let db = null;
+async function initDB() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open(CFG.dbName, CFG.dbVersion);
+    r.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('history')) {
+        const hs = d.createObjectStore('history', { keyPath: 'id' });
+        hs.createIndex('gtin14', 'gtin14', { unique: false });
+        hs.createIndex('gtin14_batch', ['gtin14','batch'], { unique: false });
+        hs.createIndex('expiry', 'expiry', { unique: false });
+      }
+      if (!d.objectStoreNames.contains('master')) {
+        const ms = d.createObjectStore('master', { keyPath: 'id' });
+        ms.createIndex('gtin14', 'gtin14', { unique: false });
+        ms.createIndex('last8', 'last8', { unique: false });
+        ms.createIndex('supplier', 'supplier', { unique: false });
+      }
+      if (!d.objectStoreNames.contains('config')) d.createObjectStore('config');
+    };
+    r.onsuccess = e => { db = e.target.result; res(); };
+    r.onerror = rej;
+  });
+}
+const dbGetAll = s => new Promise((r,j) => { const q = db.transaction(s).objectStore(s).getAll(); q.onsuccess = () => r(q.result); q.onerror = j; });
+const dbPut = (s,v) => new Promise((r,j) => { const q = db.transaction(s,'readwrite').objectStore(s).put(v); q.onsuccess = () => r(q.result); q.onerror = j; });
+const dbDelete = (s,k) => new Promise((r,j) => { const q = db.transaction(s,'readwrite').objectStore(s).delete(k); q.onsuccess = () => r(); q.onerror = j; });
+const dbClear = s => new Promise((r,j) => { const q = db.transaction(s,'readwrite').objectStore(s).clear(); q.onsuccess = () => r(); q.onerror = j; });
+
+/* ─── GS1 PARSER ────────────────────────── */
+function parseGS1(raw) {
+  const res = { gtin: null, expiry: null, batch: null, qty: null, raw };
+  const c = raw.replace(/[\x1D\x1E\x04]/g,'|').replace(/\((\d+)\)/g,'|$1|');
+  const p = c.split('|').filter(Boolean);
+  let i = 0;
+  while (i < p.length) {
+    const x = p[i];
+    if (x === '01') { res.gtin = p[++i]?.substring(0,14); i++; }
+    else if (x === '17') { const d = p[++i]; i++; if (d?.length === 6) res.expiry = `20${d.slice(0,2)}-${d.slice(2,4)}`; }
+    else if (x === '10') { res.batch = p[++i]; i++; }
+    else if (x === '30') { res.qty = parseInt(p[++i]) || null; i++; }
+    else { if (/^\d{8,14}$/.test(x)) res.gtin = res.gtin || x.padStart(14,'0'); i++; }
+  }
+  if (!res.gtin && /^\d{8,14}$/.test(raw.trim())) res.gtin = raw.trim().padStart(14,'0');
+  return res;
+}
+const toG14 = c => String(c).replace(/\D/g,'').padStart(14,'0').slice(0,14);
+const toG13 = g => g.replace(/^0/,'');
+
+/* ─── PRODUCT MATCHER ───────────────────── */
+function buildMasterIndex() {
+  S.masterIndex.clear();
+  S.supplierSet.clear();
+  S.master.forEach(p => {
+    const g = toG14(p.gtin14 || p.barcode || '');
+    if (g) {
+      S.masterIndex.set(g, p);
+      S.masterIndex.set(g.slice(-8), p);
+      S.masterIndex.set(g.replace(/^0+/,''), p);
+    }
+    if (p.supplier) S.supplierSet.add(p.supplier.trim());
+  });
+}
+function matchProduct(bc) {
+  const g = toG14(bc);
+  if (S.masterIndex.has(g)) return { ...S.masterIndex.get(g), matchType: 'EXACT' };
+  if (S.masterIndex.has(g.slice(-8))) return { ...S.masterIndex.get(g.slice(-8)), matchType: 'LAST8' };
+  const s = g.replace(/^0+/,'');
+  if (S.masterIndex.has(s)) return { ...S.masterIndex.get(s), matchType: 'LAST8' };
+  return null;
+}
+async function lookupAPIs(gtin14) {
+  if (!navigator.onLine || !CFG.apiEnabled) return null;
+  const apis = [
+    async () => { const r = await fetch(`https://world.openfoodfacts.org/api/v2/product/${gtin14}.json`); const d = await r.json(); if (d.status===1&&d.product?.product_name) return { name: d.product.product_name, brand: d.product.brands||'', matchType: 'API' }; },
+    async () => { const r = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${gtin14}`); const d = await r.json(); if (d.code==='OK'&&d.items?.length) return { name: d.items[0].title||'', brand: d.items[0].brand||'', matchType: 'API' }; }
+  ];
+  for (const api of apis) { try { const r = await Promise.race([api(), new Promise((_,rj)=>setTimeout(()=>rj('t'),4000))]); if (r?.name) return r; } catch {} }
+  return null;
+}
+
+/* ─── EXPIRY HELPERS ────────────────────── */
+function parseExpiry(val) {
+  if (!val) return null;
+  const m = val.match(/^(\d{4})-(\d{2})$/);
+  if (m) return new Date(+m[1], +m[2]-1, 1);
+  return null;
+}
+function expiryStatus(d) {
+  if (!d) return 'none';
+  const diff = Math.ceil((d - new Date().setHours(0,0,0,0)) / 864e5);
+  if (diff <= 0) return 'expired'; if (diff <= 90) return 'expiring'; return 'good';
+}
+function fmtExpiry(val) {
+  const d = parseExpiry(val);
+  if (!d) return 'No Expiry';
+  return `${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+function fmtMMYYYY(val) {
+  const d = parseExpiry(val);
+  if (!d) return '';
+  return `${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+}
+function fmtDDMMYY(val) {
+  const d = parseExpiry(val);
+  if (!d) return val||'';
+  return `01${String(d.getMonth()+1).padStart(2,'0')}${String(d.getFullYear()).slice(-2)}`;
+}
+function storedExpiry(mm, yyyy) {
+  return `${yyyy}-${String(mm).padStart(2,'0')}`;
+}
+
+/* ─── EXPIRY PICKER ─────────────────────── */
+function buildExpiryPicker() {
+  const now = new Date();
+  const curY = now.getFullYear();
+  const yr = S.pickerYear;
+
+  // Year buttons: curY-1 to curY+3
+  const years = [curY-1, curY, curY+1, curY+2];
+  const yd = document.getElementById('yearOptions');
+  yd.innerHTML = years.map(y => `<button class="press px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${y===yr?'bg-teal-500 text-white border-teal-500':'bg-slate-50 border-slate-200 text-slate-600'}" onclick="selectYear(${y})">${y}</button>`).join('');
+
+  // Month grid
+  const mg = document.getElementById('monthGrid');
+  mg.innerHTML = MONTHS.map((m,i) => {
+    const isSelected = S.pickerMonth === i+1 && yr === S.pickerYear;
+    const isPast = (yr < curY) || (yr === curY && i+1 < now.getMonth()+1);
+    const cls = isSelected ? 'selected bg-teal-500 text-white border-teal-500' : isPast ? 'bg-slate-50 border-slate-100 text-slate-300' : 'bg-white border-slate-200 text-slate-700 hover:border-teal-300 hover:bg-teal-50';
+    return `<button class="month-btn h-10 rounded-xl text-xs font-bold border transition-all ${cls}" onclick="selectPickerMonth(${i+1})">${m}</button>`;
+  }).join('');
+
+  // Quick options
+  const qm = document.getElementById('quickMonths');
+  const quicks = [];
+  for (let i = 1; i <= 12; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    quicks.push({ label: `+${i}m`, mm: d.getMonth()+1, yyyy: d.getFullYear() });
+  }
+  qm.innerHTML = quicks.slice(0,6).map(q =>
+    `<button class="press px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-600 hover:border-teal-300 hover:bg-teal-50 transition-all" onclick="quickPickExpiry(${q.mm},${q.yyyy})">${q.label} ${MONTHS[q.mm-1]}'${String(q.yyyy).slice(-2)}</button>`
+  ).join('');
+
+  updatePickerDisplay();
+}
+function selectYear(y) {
+  S.pickerYear = y;
+  buildExpiryPicker();
+}
+function selectPickerMonth(m) {
+  S.pickerMonth = m;
+  buildExpiryPicker();
+}
+function quickPickExpiry(mm, yyyy) {
+  S.pickerYear = yyyy;
+  S.pickerMonth = mm;
+  buildExpiryPicker();
+}
+function updatePickerDisplay() {
+  const el = document.getElementById('expiryPickerSelected');
+  if (S.pickerMonth) {
+    el.textContent = `${String(S.pickerMonth).padStart(2,'0')}/${S.pickerYear}`;
+    el.style.color = 'oklch(0.580 0.112 178)';
+  } else {
+    el.textContent = '—';
+  }
+}
+function openExpiryPicker(target) {
+  S.pickerTarget = target;
+  // pre-load existing value
+  let existing = null;
+  if (target === 'scan') existing = document.getElementById('inputExpiry').value;
+  else if (target === 'template') existing = document.getElementById('tmplExpiry').value;
+  else if (target === 'edit') existing = document.getElementById('editExpiry').value;
+  if (existing) {
+    const d = parseExpiry(existing);
+    if (d) { S.pickerYear = d.getFullYear(); S.pickerMonth = d.getMonth()+1; }
+  } else {
+    S.pickerYear = new Date().getFullYear();
+    S.pickerMonth = null;
+  }
+  buildExpiryPicker();
+  openSheet('expirySheet');
+}
+function confirmExpiry() {
+  if (!S.pickerMonth) { showToast('Please select a month','error'); return; }
+  const val = storedExpiry(S.pickerMonth, S.pickerYear);
+  const disp = `${String(S.pickerMonth).padStart(2,'0')}/${S.pickerYear}`;
+  if (S.pickerTarget === 'scan') {
+    document.getElementById('inputExpiry').value = val;
+    document.getElementById('expiryDisplay').textContent = disp;
+    document.getElementById('expiryDisplay').style.color = 'oklch(0.279 0.010 247)';
+    document.getElementById('expiryAutoTag').style.display = 'none';
+  } else if (S.pickerTarget === 'template') {
+    document.getElementById('tmplExpiry').value = val;
+    document.getElementById('tmplExpiryDisplay').textContent = disp;
+    document.getElementById('tmplExpiryDisplay').style.color = 'oklch(0.279 0.010 247)';
+  } else if (S.pickerTarget === 'edit') {
+    document.getElementById('editExpiry').value = val;
+    document.getElementById('editExpiryDisplay').textContent = disp;
+    document.getElementById('editExpiryDisplay').style.color = 'oklch(0.279 0.010 247)';
+  }
+  closeSheet('expirySheet');
+}
+
+/* ─── SUPPLIER AUTOCOMPLETE ─────────────── */
+function supplierSuggestions(query) {
+  const q = query.toLowerCase();
+  return [...S.supplierSet].filter(s => s.toLowerCase().includes(q)).slice(0, 8);
+}
+function renderSupplierDropdown(inputId, dropdownId, query) {
+  const dd = document.getElementById(dropdownId);
+  const sugs = supplierSuggestions(query);
+  if (!sugs.length || !query) { dd.style.display = 'none'; return; }
+  dd.innerHTML = sugs.map(s =>
+    `<button class="ac-item w-full text-left px-4 py-3 text-sm font-medium text-slate-700 border-b border-slate-50 last:border-0 hover:bg-teal-50" onclick="pickSupplier('${inputId}','${dropdownId}','${esc(s)}')">${esc(s)}</button>`
+  ).join('');
+  dd.style.display = 'block';
+}
+function pickSupplier(inputId, dropdownId, val) {
+  document.getElementById(inputId).value = val;
+  document.getElementById(dropdownId).style.display = 'none';
+}
+
+/* ─── HISTORY CRUD ──────────────────────── */
+async function loadHistory() {
+  S.history = await dbGetAll('history');
+  S.history.sort((a,b) => new Date(b.scanTimestamp) - new Date(a.scanTimestamp));
+  updateStats(); renderRecent(); renderHistory(); renderDashboard();
+}
+async function saveItem(item) {
+  await dbPut('history', item);
+  const i = S.history.findIndex(h => h.id === item.id);
+  if (i >= 0) S.history[i] = item; else S.history.unshift(item);
+  S.history.sort((a,b) => new Date(b.scanTimestamp) - new Date(a.scanTimestamp));
+  updateStats(); renderRecent(); renderHistory(); renderDashboard();
+}
+async function deleteHistoryItem(id) {
+  await dbDelete('history', id);
+  S.history = S.history.filter(h => h.id !== id);
+  renderHistory(); renderRecent(); updateStats(); renderDashboard();
+}
+function findExisting(g, b) { return S.history.find(h => h.gtin14 === g && h.batch === (b||'')); }
+
+/* ─── PROCESS SCAN ──────────────────────── */
+async function processScan(raw) {
+  vibrate([30,50,30]);
+  const gs1 = parseGS1(raw);
+  if (!gs1.gtin) { showToast('Invalid barcode','error'); return; }
+  const g14 = toG14(gs1.gtin);
+  S.pendingGs1 = gs1; S.pendingBarcode = g14;
+
+  // Reset form
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputBarcode').value = toG13(g14);
+  document.getElementById('inputRMS').value = '';
+  document.getElementById('inputBatch').value = '';
+  document.getElementById('inputQty').value = gs1.qty || 1;
+  document.getElementById('inputExpiry').value = '';
+  document.getElementById('expiryDisplay').textContent = 'Select month…';
+  document.getElementById('expiryDisplay').style.color = '';
+  document.getElementById('expiryAutoTag').style.display = 'none';
+  document.getElementById('batchAutoTag').style.display = 'none';
+  document.getElementById('inputSupplier').value = '';
+  document.getElementById('supplierDropdown').style.display = 'none';
+
+  // Apply template defaults
+  if (S.templateActive) {
+    if (S.template.supplier) document.getElementById('inputSupplier').value = S.template.supplier;
+    if (S.template.batch) document.getElementById('inputBatch').value = S.template.batch;
+    if (S.template.expiry) {
+      document.getElementById('inputExpiry').value = S.template.expiry;
+      document.getElementById('expiryDisplay').textContent = fmtMMYYYY(S.template.expiry);
+      document.getElementById('expiryDisplay').style.color = 'oklch(0.279 0.010 247)';
+    }
+  }
+
+  // Auto-fill from GS1
+  if (gs1.expiry) {
+    document.getElementById('inputExpiry').value = gs1.expiry;
+    document.getElementById('expiryDisplay').textContent = fmtMMYYYY(gs1.expiry);
+    document.getElementById('expiryDisplay').style.color = 'oklch(0.279 0.010 247)';
+    document.getElementById('expiryAutoTag').style.display = '';
+  }
+  if (gs1.batch) { document.getElementById('inputBatch').value = gs1.batch; document.getElementById('batchAutoTag').style.display = ''; }
+
+  // Match
+  let match = matchProduct(g14);
+  const isUnknown = !match;
+  if (!match) { showToast('Looking up product…','info'); match = await lookupAPIs(g14); }
+  S.pendingMatchData = match;
+
+  // Populate header
+  const mb = document.getElementById('matchBadge');
+  const msi = document.getElementById('masterSupplierInfo');
+  const mst = document.getElementById('masterSupplierText');
+
+  if (match?.name) {
+    document.getElementById('scanSheetTitle').textContent = match.name;
+    document.getElementById('inputName').value = match.name;
+    mb.textContent = match.matchType || 'FOUND';
+    mb.className = `flex-shrink-0 text-2xs font-bold px-2 py-1 rounded-lg ${match.matchType==='EXACT'?'bg-emerald-100 text-emerald-700':match.matchType==='API'?'bg-violet-100 text-violet-600':'bg-amber-100 text-amber-600'}`;
+    mb.style.display = '';
+    if (match.supplier && !document.getElementById('inputSupplier').value) {
+      document.getElementById('inputSupplier').value = match.supplier;
+      msi.style.display = '';
+      mst.textContent = match.supplier;
+    } else msi.style.display = 'none';
+  } else {
+    document.getElementById('scanSheetTitle').textContent = '⚠️ Unknown Product';
+    mb.style.display = 'none';
+    msi.style.display = 'none';
+  }
+  document.getElementById('scanSheetSub').textContent = `${toG13(g14)}  ·  GTIN-14: ${g14}`;
+  document.getElementById('unknownBanner').style.display = isUnknown ? '' : 'none';
+  document.getElementById('scanTabBar').style.display = '';
+
+  // Populate supplier tab
+  populateSupplierTab(match);
+
+  setRemarks('');
+  switchScanTab('details');
+  openSheet('scanSheet');
+}
+function populateSupplierTab(match) {
+  const panel = document.getElementById('supplierInfoPanel');
+  if (!match?.supplier && !match?.brand) {
+    panel.innerHTML = '<p class="text-sm text-slate-400 text-center py-8">No supplier info found for this product.</p>';
+    return;
+  }
+  panel.innerHTML = `
+    <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 space-y-3">
+      ${match.supplier ? `<div><div class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-0.5">Supplier</div><div class="text-sm font-bold text-violet-700">${esc(match.supplier)}</div></div>` : ''}
+      ${match.brand ? `<div><div class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-0.5">Brand</div><div class="text-sm font-bold text-slate-700">${esc(match.brand)}</div></div>` : ''}
+      ${match.name ? `<div><div class="text-2xs font-bold tracking-widest uppercase text-slate-400 mb-0.5">Product</div><div class="text-sm text-slate-700">${esc(match.name)}</div></div>` : ''}
+    </div>
+    <button class="press w-full h-11 mt-3 bg-violet-50 border border-violet-200 text-violet-700 rounded-xl text-sm font-bold" onclick="document.getElementById('inputSupplier').value='${esc(match.supplier||match.brand||'')}';switchScanTab('details')">
+      ← Use This Supplier
+    </button>`;
+}
+async function saveScan() {
+  const name = document.getElementById('inputName').value.trim();
+  if (!name) { showToast('Product name required','error'); return; }
+  const expiry = document.getElementById('inputExpiry').value;
+  if (!expiry) { showToast('Expiry date required','error'); return; }
+  const batch = document.getElementById('inputBatch').value.trim();
+  const qty = parseInt(document.getElementById('inputQty').value) || 1;
+  const rms = document.getElementById('inputRMS').value.trim();
+  const supplier = document.getElementById('inputSupplier').value.trim();
+  const g14 = S.pendingBarcode;
+
+  const existing = findExisting(g14, batch);
+  if (existing) {
+    existing.quantity += qty;
+    existing.scanTimestamp = new Date().toISOString();
+    await saveItem(existing);
+    closeSheet('scanSheet');
+    showToast(`+${qty} added (total: ${existing.quantity})`, 'success');
+    vibrate([30,50,30]);
+    return;
+  }
+  const item = {
+    id: crypto.randomUUID(), gtin14: g14, gtin13: toG13(g14), barcode: toG13(g14),
+    rms, description: name, supplier, quantity: qty, expiry, batch,
+    locationNo: CFG.storeNo, locationName: CFG.storeName,
+    returnStatus: S.selectedRemarks,
+    matchType: S.pendingMatchData?.matchType || 'MANUAL',
+    scanTimestamp: new Date().toISOString(), editTimestamp: null
+  };
+  await saveItem(item);
+  if (supplier) S.supplierSet.add(supplier);
+  closeSheet('scanSheet');
+  showToast('✓ Item saved', 'success');
+  vibrate([30,50,30]);
+  document.getElementById('barcodeInput').value = '';
+}
+
+/* ─── HISTORY CARD ──────────────────────── */
+function histCard(item) {
+  const d = parseExpiry(item.expiry), st = expiryStatus(d);
+  const bCls = st==='expired'?'border-l-expired':st==='expiring'?'border-l-warn':st==='good'?'border-l-good':'border-l-none';
+  const nColor = st==='expired'?'oklch(0.62 0.21 25)':st==='expiring'?'oklch(0.76 0.147 85)':st==='good'?'oklch(0.60 0.140 155)':'oklch(0.446 0.017 247)';
+  const nDecor = st==='expired'?'line-through':'';
+  const rStyle = item.returnStatus==='SOLD'?'background:oklch(0.93 0.048 155);color:oklch(0.50 0.122 155);border:1px solid oklch(0.87 0.082 155)':item.returnStatus==='REMOVED'?'background:oklch(0.93 0.032 25);color:oklch(0.62 0.21 25);border:1px solid oklch(0.88 0.055 25)':'background:oklch(0.961 0.006 247);color:oklch(0.556 0.020 247);border:1px solid oklch(0.927 0.009 247)';
+  return `<div class="bg-white rounded-xl border border-slate-100 overflow-hidden ${bCls} fade-up" style="box-shadow:var(--shadow-xs)" data-id="${item.id}">
+    <div class="p-3.5">
+      <div class="flex items-start justify-between gap-2 mb-1.5">
+        <div class="text-sm font-bold leading-snug flex-1 min-w-0 truncate" style="color:${nColor};text-decoration:${nDecor}">${esc(item.description||'Unknown')}</div>
+        <div class="flex-shrink-0 font-mono text-xs font-bold px-2 py-0.5 rounded-lg" style="background:oklch(0.950 0.040 178);color:oklch(0.480 0.096 178);border:1px solid oklch(0.900 0.072 178)">×${item.quantity}</div>
+      </div>
+      <!-- Fields: Barcode · RMS · GTIN · Supplier -->
+      <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 mb-2">
+        <div class="text-2xs text-slate-400">Barcode <span class="font-mono font-semibold text-slate-600">${esc(item.barcode||toG13(item.gtin14))}</span></div>
+        ${item.rms?`<div class="text-2xs text-slate-400">RMS <span class="font-mono font-semibold text-slate-600">${esc(item.rms)}</span></div>`:''  }
+        <div class="text-2xs text-slate-400">GTIN <span class="font-mono font-semibold text-slate-600">${item.gtin14}</span></div>
+        ${item.expiry?`<div class="text-2xs text-slate-400">Exp <span class="font-semibold text-slate-600">${fmtExpiry(item.expiry)}</span></div>`:''}
+        ${item.batch?`<div class="text-2xs text-slate-400">Batch <span class="font-mono font-semibold text-slate-600">${esc(item.batch)}</span></div>`:''}
+        ${item.supplier?`<div class="text-2xs text-slate-400 col-span-2">🏭 <span class="font-semibold text-violet-600">${esc(item.supplier)}</span></div>`:''}
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-2xs font-bold px-2 py-1 rounded-lg" style="${rStyle}">${item.returnStatus||'Pending'}</span>
+        <div class="flex items-center gap-1">
+          <button class="press text-xs font-semibold px-2.5 py-1 rounded-lg bg-teal-50 border border-teal-100 text-teal-600" onclick="openEditItem('${item.id}')">✏️ Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function renderRecent() {
+  const el = document.getElementById('recentList');
+  const items = S.history.slice(0,5);
+  el.innerHTML = items.length ? items.map(histCard).join('') : `<div class="text-center py-10 text-slate-400"><div class="text-4xl mb-3">📦</div><div class="text-sm">No scans yet.</div></div>`;
+}
+function filteredHistory() {
+  let items = [...S.history];
+  const q = S.searchQuery.toLowerCase();
+  if (q) items = items.filter(h =>
+    (h.description||'').toLowerCase().includes(q) ||
+    (h.gtin14||'').includes(q) || (h.barcode||'').includes(q) ||
+    (h.batch||'').toLowerCase().includes(q) || (h.rms||'').toLowerCase().includes(q) ||
+    (h.supplier||'').toLowerCase().includes(q)
+  );
+  const f = S.filter;
+  if (f==='expired') items=items.filter(h=>expiryStatus(parseExpiry(h.expiry))==='expired');
+  else if (f==='expiring') items=items.filter(h=>expiryStatus(parseExpiry(h.expiry))==='expiring');
+  else if (f==='good') items=items.filter(h=>expiryStatus(parseExpiry(h.expiry))==='good');
+  else if (f==='sold') items=items.filter(h=>h.returnStatus==='SOLD');
+  else if (f==='removed') items=items.filter(h=>h.returnStatus==='REMOVED');
+  else if (f==='pending') items=items.filter(h=>!h.returnStatus);
+  return items;
+}
+function renderHistory() {
+  const el = document.getElementById('historyList');
+  const items = filteredHistory();
+  el.innerHTML = items.length ? items.map(histCard).join('') : `<div class="text-center py-10 text-slate-400"><div class="text-4xl mb-3">📋</div><div class="text-sm">No items match.</div></div>`;
+}
+function updateStats() {
+  const ex = S.history.filter(h=>expiryStatus(parseExpiry(h.expiry))==='expired').length;
+  const ep = S.history.filter(h=>expiryStatus(parseExpiry(h.expiry))==='expiring').length;
+  document.getElementById('statTotal').textContent = S.history.length;
+  document.getElementById('statExpiring').textContent = ep;
+  document.getElementById('statExpired').textContent = ex;
+}
+function renderDashboard() {
+  const t=S.history.length, q=S.history.reduce((s,h)=>s+(h.quantity||0),0);
+  const ex=S.history.filter(h=>expiryStatus(parseExpiry(h.expiry))==='expired').length;
+  const ep=S.history.filter(h=>expiryStatus(parseExpiry(h.expiry))==='expiring').length;
+  const sold=S.history.filter(h=>h.returnStatus==='SOLD').length;
+  const rem=S.history.filter(h=>h.returnStatus==='REMOVED').length;
+  ['dashTotal','dashQty','dashExpired','dashExpiring','dashSold','dashRemoved','dashPending'].forEach((id,i)=>{
+    document.getElementById(id).textContent = [t,q,ex,ep,sold,rem,t-sold-rem][i];
+  });
+  const mm={};
+  S.history.forEach(h=>{if(h.expiry){const k=h.expiry.slice(0,7);mm[k]=(mm[k]||0)+1;}});
+  const months=Object.keys(mm).sort(), max=Math.max(...Object.values(mm),1);
+  const mb=document.getElementById('monthBreakdown');
+  if(!months.length){mb.innerHTML='<p class="text-sm text-slate-400 text-center py-4">No expiry data yet</p>';return;}
+  mb.innerHTML=months.map(m=>{
+    const dt=new Date(m+'-01'),cnt=mm[m],pct=(cnt/max*100).toFixed(0);
+    return`<div class="flex items-center gap-3"><div class="text-xs font-mono w-14 flex-shrink-0 text-slate-400">${MONTHS[dt.getMonth()]} '${String(dt.getFullYear()).slice(-2)}</div><div class="flex-1 h-1.5 rounded-full" style="background:oklch(0.961 0.006 247)"><div class="bar-fill h-full rounded-full" style="width:${pct}%;background:oklch(0.760 0.115 178)"></div></div><div class="text-xs font-mono font-bold text-right w-5 flex-shrink-0 text-slate-500">${cnt}</div></div>`;
+  }).join('');
+}
+
+/* ─── EDIT ITEM ─────────────────────────── */
+function openEditItem(id) {
+  const item = S.history.find(h => h.id === id);
+  if (!item) return;
+  S.editItemId = id;
+  document.getElementById('editSheetSub').textContent = item.gtin14;
+  document.getElementById('editName').value = item.description || '';
+  document.getElementById('editBarcode').value = item.barcode || toG13(item.gtin14);
+  document.getElementById('editRMS').value = item.rms || '';
+  document.getElementById('editBatch').value = item.batch || '';
+  document.getElementById('editQty').value = item.quantity || 1;
+  document.getElementById('editSupplier').value = item.supplier || '';
+  document.getElementById('editExpiry').value = item.expiry || '';
+  document.getElementById('editExpiryDisplay').textContent = item.expiry ? fmtMMYYYY(item.expiry) : 'Select…';
+  document.getElementById('editExpiryDisplay').style.color = item.expiry ? 'oklch(0.279 0.010 247)' : '';
+  setEditStatus(item.returnStatus || '');
+  openSheet('editSheet');
+}
+async function saveEdit() {
+  const item = S.history.find(h => h.id === S.editItemId);
+  if (!item) return;
+  item.description = document.getElementById('editName').value.trim();
+  item.rms = document.getElementById('editRMS').value.trim();
+  item.batch = document.getElementById('editBatch').value.trim();
+  item.expiry = document.getElementById('editExpiry').value;
+  item.supplier = document.getElementById('editSupplier').value.trim();
+  item.quantity = parseInt(document.getElementById('editQty').value) || 1;
+  item.returnStatus = S.selectedEditRemarks;
+  item.editTimestamp = new Date().toISOString();
+  if (item.supplier) S.supplierSet.add(item.supplier);
+  await saveItem(item);
+  closeSheet('editSheet');
+  showToast('✓ Changes saved', 'success');
+  vibrate([30,50,30]);
+}
+
+/* ─── EXPORT ────────────────────────────── */
+// Format: BARCODE · RMS · DESCRIPTION · EXPIRY (DDMMYY) · BATCH · SUPPLIER
+const HEADER = ['BARCODE','RMS','DESCRIPTION','EXPIRY (DDMMYY)','BATCH','SUPPLIER','QUANTITY','LOCATION NO','LOCATION NAME','RETURN STATUS'];
+function rows() {
+  return S.history.map(h => [
+    h.barcode || toG13(h.gtin14), h.rms||'', h.description,
+    fmtDDMMYY(h.expiry), h.batch||'', h.supplier||'',
+    h.quantity, h.locationNo||CFG.storeNo, h.locationName||CFG.storeName,
+    h.returnStatus||''
+  ]);
+}
+function dl(c,f,t){const b=new Blob([c],{type:t}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=f;a.click();setTimeout(()=>URL.revokeObjectURL(u),1e3);}
+const ds=()=>new Date().toISOString().slice(0,10).replace(/-/g,'');
+function exportTSV(){dl([HEADER,...rows()].map(r=>r.join('\t')).join('\n'),`${CFG.exportFile}-${ds()}.tsv`,'text/tab-separated-values');showToast('TSV exported','success');}
+function exportCSV(){dl([HEADER,...rows()].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n'),`${CFG.exportFile}-${ds()}.csv`,'text/csv');showToast('CSV exported','success');}
+function exportJSON(){dl(JSON.stringify({version:7,app:'PharmaScan Pro',store:`${CFG.storeNo}`,exportDate:new Date().toISOString(),history:S.history,master:S.master},null,2),`${CFG.exportFile}-backup-${ds()}.json`,'application/json');showToast('Backup exported','success');}
+
+/* ─── MASTER CSV ────────────────────────── */
+async function parseMasterCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l=>l.trim());
+  if (!lines.length) return [];
+  const delims = ['\t',',',';','|']; let delim = ',';
+  for (const d of delims) { if (lines[0].split(d).length > 1) { delim = d; break; } }
+  const hdrs = lines[0].split(delim).map(h=>h.replace(/"/g,'').trim().toLowerCase());
+  const bc = hdrs.findIndex(h=>/barcode|gtin|ean|upc|code/.test(h));
+  const nc = hdrs.findIndex(h=>/name|product|description|item/.test(h));
+  const sc = hdrs.findIndex(h=>/supplier|vendor|brand|manufacturer/.test(h));
+  if (bc<0||nc<0) return null;
+  const prods = [];
+  for (let i=1; i<lines.length; i++) {
+    const c = lines[i].split(delim).map(x=>x.replace(/^"|"$/g,'').trim());
+    const b = c[bc]?.replace(/\D/g,''), n = c[nc];
+    if (!b||b.length<8||!n) continue;
+    prods.push({ id: crypto.randomUUID(), gtin14: toG14(b), barcode: b, last8: b.slice(-8), name: n, supplier: sc>=0?c[sc]||'':'', source: 'CSV' });
+  }
+  return prods;
+}
+
+/* ─── CAMERA ────────────────────────────── */
+async function startCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}}});
+    S.cameraStream = stream;
+    const v = document.getElementById('cameraVideo'); v.srcObject = stream; await v.play();
+    document.getElementById('cameraView').style.display = 'flex';
+    vibrate(30); startBarcodeDetection(v);
+  } catch { showToast('Camera not available','error'); }
+}
+function stopCamera() {
+  if (S.cameraStream) { S.cameraStream.getTracks().forEach(t=>t.stop()); S.cameraStream=null; }
+  document.getElementById('cameraView').style.display = 'none';
+}
+async function startBarcodeDetection(video) {
+  if (!('BarcodeDetector' in window)) { showToast('Camera scanning not supported in this browser','error'); stopCamera(); return; }
+  try {
+    const det = new BarcodeDetector({formats:['ean_13','ean_8','upc_a','qr_code','data_matrix','code_128']});
+    const tick = async () => {
+      if (!S.cameraStream) return;
+      try {
+        const codes = await det.detect(video);
+        if (codes.length) {
+          const code = codes[0].rawValue;
+          const el = document.getElementById('cameraDetected'); el.textContent=code; el.style.display='';
+          setTimeout(()=>el.style.display='none',1000);
+          if (!S.scanDebounce) {
+            S.scanDebounce = setTimeout(()=>S.scanDebounce=null,2000);
+            stopCamera(); processScan(code); return;
+          }
+        }
+      } catch {}
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  } catch { showToast('Scanner error','error'); }
+}
+
+/* ─── BULK PASTE ────────────────────────── */
+async function processBulkPaste() {
+  const text = document.getElementById('pasteTextarea').value.trim();
+  if (!text) return;
+  const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  let added=0, merged=0, failed=0;
+  for (const line of lines) {
+    const gs1 = parseGS1(line);
+    if (!gs1.gtin) { failed++; continue; }
+    const g14 = toG14(gs1.gtin);
+    const ex = findExisting(g14, gs1.batch||'');
+    if (ex) { ex.quantity+=1; ex.scanTimestamp=new Date().toISOString(); await saveItem(ex); merged++; }
+    else {
+      let m = matchProduct(g14);
+      await saveItem({
+        id:crypto.randomUUID(), gtin14:g14, gtin13:toG13(g14), barcode:toG13(g14),
+        rms:'', description:m?.name||g14, supplier:m?.supplier||S.template.supplier||'',
+        quantity:gs1.qty||1, expiry:gs1.expiry||S.template.expiry||'',
+        batch:gs1.batch||S.template.batch||'',
+        locationNo:CFG.storeNo, locationName:CFG.storeName,
+        returnStatus:S.template.status||'', matchType:m?.matchType||'MANUAL',
+        scanTimestamp:new Date().toISOString(), editTimestamp:null
+      });
+      added++;
+    }
+  }
+  const s = document.getElementById('pasteStats');
+  s.innerHTML = `✓ <strong>${added}</strong> added · <strong>${merged}</strong> merged · <strong>${failed}</strong> failed`;
+  s.style.display = '';
+  showToast(`Processed ${lines.length} lines`,'success');
+  setTimeout(()=>{ closeSheet('pasteSheet'); document.getElementById('pasteTextarea').value=''; s.style.display='none'; }, 2000);
+}
+
+/* ─── TEMPLATE ──────────────────────────── */
+function openTemplate() {
+  document.getElementById('tmplSupplier').value = S.template.supplier;
+  document.getElementById('tmplBatch').value = S.template.batch;
+  document.getElementById('tmplExpiry').value = S.template.expiry;
+  document.getElementById('tmplExpiryDisplay').textContent = S.template.expiry ? fmtMMYYYY(S.template.expiry) : 'Select month…';
+  document.getElementById('tmplExpiryDisplay').style.color = S.template.expiry ? 'oklch(0.279 0.010 247)' : '';
+  setTmplStatus(S.template.status || '');
+  updateActiveTemplateBox();
+  openSheet('templateSheet');
+}
+function applyTemplate() {
+  S.template.supplier = document.getElementById('tmplSupplier').value.trim();
+  S.template.batch = document.getElementById('tmplBatch').value.trim();
+  S.template.expiry = document.getElementById('tmplExpiry').value;
+  S.templateActive = !!(S.template.supplier || S.template.batch || S.template.expiry || S.template.status);
+  updateTemplateBadge();
+  closeSheet('templateSheet');
+  showToast(S.templateActive ? '📋 Template applied' : 'Template cleared','info');
+}
+function clearTemplate() {
+  S.template = { supplier:'', batch:'', expiry:'', status:'' };
+  S.templateActive = false;
+  document.getElementById('tmplSupplier').value = '';
+  document.getElementById('tmplBatch').value = '';
+  document.getElementById('tmplExpiry').value = '';
+  document.getElementById('tmplExpiryDisplay').textContent = 'Select month…';
+  document.getElementById('tmplExpiryDisplay').style.color = '';
+  setTmplStatus('');
+  updateActiveTemplateBox();
+  updateTemplateBadge();
+}
+function updateTemplateBadge() {
+  const b = document.getElementById('templateBadge');
+  const bt = document.getElementById('templateBadgeText');
+  if (S.templateActive) {
+    b.classList.remove('hidden');
+    bt.textContent = S.template.supplier || S.template.expiry ? `${S.template.supplier||''}${S.template.expiry?' · '+fmtMMYYYY(S.template.expiry):''}`.trim() : 'Active';
+  } else {
+    b.classList.add('hidden');
+  }
+}
+function updateActiveTemplateBox() {
+  const box = document.getElementById('activeTemplateBox');
+  const txt = document.getElementById('activeTemplateText');
+  const any = S.template.supplier||S.template.batch||S.template.expiry||S.template.status;
+  if (!any) { box.style.display='none'; return; }
+  box.style.display='';
+  txt.innerHTML = [
+    S.template.supplier ? `<div>🏭 Supplier: <strong>${esc(S.template.supplier)}</strong></div>` : '',
+    S.template.batch ? `<div>📦 Batch: <strong>${esc(S.template.batch)}</strong></div>` : '',
+    S.template.expiry ? `<div>📅 Expiry: <strong>${fmtMMYYYY(S.template.expiry)}</strong></div>` : '',
+    S.template.status ? `<div>🔖 Status: <strong>${S.template.status}</strong></div>` : '',
+  ].join('');
+}
+
+/* ─── PIN ───────────────────────────────── */
+function requirePIN(reason, cb) { S.pinCallback=cb; S.pinBuffer=''; document.getElementById('pinReason').textContent=reason; updateDots(); openSheet('pinSheet'); }
+function updateDots() {
+  for (let i=0;i<4;i++) {
+    const d=document.getElementById(`dot${i}`), f=i<S.pinBuffer.length;
+    d.style.background=f?'oklch(0.680 0.124 178)':'transparent';
+    d.style.borderColor=f?'oklch(0.680 0.124 178)':'oklch(0.869 0.012 247)';
+    d.style.boxShadow=f?'0 0 8px oklch(0.680 0.124 178 / 0.4)':'none';
+  }
+}
+function pinKey(k) { if(S.pinBuffer.length>=4)return; S.pinBuffer+=k; vibrate(10); updateDots(); if(S.pinBuffer.length===4)setTimeout(checkPIN,120); }
+function pinDel() { if(S.pinBuffer.length>0){S.pinBuffer=S.pinBuffer.slice(0,-1);updateDots();} }
+function checkPIN() {
+  if (S.pinBuffer===CFG.pin) { closeSheet('pinSheet'); vibrate([10,50,30]); if(S.pinCallback){S.pinCallback();S.pinCallback=null;} }
+  else {
+    vibrate([100,50,100]);
+    for(let i=0;i<4;i++){const d=document.getElementById(`dot${i}`);d.style.background='oklch(0.62 0.21 25)';d.style.borderColor='oklch(0.62 0.21 25)';}
+    document.getElementById('pinDots').classList.add('pin-shake');
+    setTimeout(()=>{document.getElementById('pinDots').classList.remove('pin-shake');S.pinBuffer='';updateDots();},500);
+  }
+}
+
+/* ─── STATUS SELECTORS ───────────────────── */
+function setRemarks(val) {
+  S.selectedRemarks = val;
+  [['optPending','','bg-slate-100 border-slate-200 text-slate-600'],['optSold','SOLD','bg-emerald-100 border-emerald-200 text-emerald-700'],['optRemoved','REMOVED','bg-danger-100 border-danger-200 text-danger-600']].forEach(([id,v,cls])=>{
+    document.getElementById(id).className=`remarks-opt h-10 rounded-xl text-xs font-bold border ${val===v?cls:'border-slate-200 bg-white text-slate-400'}`;
+  });
+}
+function setEditStatus(val) {
+  S.selectedEditRemarks = val;
+  [['editOptPending','','bg-slate-100 border-slate-200 text-slate-600'],['editOptSold','SOLD','bg-emerald-100 border-emerald-200 text-emerald-700'],['editOptRemoved','REMOVED','bg-danger-100 border-danger-200 text-danger-600']].forEach(([id,v,cls])=>{
+    document.getElementById(id).className=`edit-status-opt h-10 rounded-xl text-xs font-bold border ${val===v?cls:'border-slate-200 bg-white text-slate-400'}`;
+  });
+}
+function setTmplStatus(val) {
+  S.template.status = val;
+  document.querySelectorAll('.tmpl-status-opt').forEach(b=>{
+    const v=b.dataset.val;
+    b.className=`tmpl-status-opt press h-10 rounded-xl text-xs font-bold border ${v===val?'bg-slate-100 border-slate-300 text-slate-700':'border-slate-200 bg-white text-slate-400'}`;
+  });
+}
+
+/* ─── SCAN TAB SWITCH ─────────────────────── */
+function switchScanTab(tab) {
+  document.querySelectorAll('.scan-tab').forEach(t=>{
+    const active = t.dataset.tab===tab;
+    t.className=`scan-tab flex-1 py-2.5 text-xs font-bold tracking-wide border-b-2 ${active?'border-teal-500 text-teal-600':'border-transparent text-slate-400'}`;
+  });
+  document.getElementById('tabDetails').style.display = tab==='details'?'':'none';
+  document.getElementById('tabSupplier').style.display = tab==='supplier'?'':'none';
+}
+
+/* ─── SHEETS ─────────────────────────────── */
+const SHEETS = ['scanSheet','expirySheet','templateSheet','editSheet','pasteSheet','pinSheet','settingsSheet'];
+function openSheet(id) { SHEETS.forEach(s=>document.getElementById(s).classList.remove('open')); document.getElementById(id).classList.add('open'); document.getElementById('overlay').classList.add('active'); }
+function closeSheet(id) { document.getElementById(id).classList.remove('open'); if(!SHEETS.some(s=>document.getElementById(s).classList.contains('open')))document.getElementById('overlay').classList.remove('active'); }
+function closeAll() { SHEETS.forEach(s=>document.getElementById(s).classList.remove('open')); document.getElementById('overlay').classList.remove('active'); document.getElementById('sideMenu').classList.remove('open'); }
+function openMenu() { document.getElementById('sideMenu').classList.add('open'); document.getElementById('overlay').classList.add('active'); document.getElementById('menuMasterCount').textContent=S.master.length; document.getElementById('menuScanCount').textContent=S.history.length; document.getElementById('menuSupplierCount').textContent=S.supplierSet.size; }
+
+/* ─── NAV ────────────────────────────────── */
+function switchPage(pid) {
+  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+  document.getElementById(pid).style.display='block';
+  document.querySelectorAll('.nav-tab').forEach(t=>{
+    const a=t.dataset.page===pid;
+    t.querySelector('.nav-icon').style.filter=a?'':'grayscale(1) opacity(0.4)';
+    t.querySelector('.nav-label').style.color=a?'oklch(0.680 0.124 178)':'oklch(0.556 0.020 247)';
+  });
+  vibrate(10);
+  if(pid==='pageDashboard')renderDashboard();
+  if(pid==='pageHistory')renderHistory();
+}
+
+/* ─── TOAST ─────────────────────────────── */
+function showToast(msg,type='info'){
+  const el=document.createElement('div');
+  const s={success:'background:oklch(0.93 0.048 155);border:1px solid oklch(0.87 0.082 155);color:oklch(0.50 0.122 155)',error:'background:oklch(0.93 0.032 25);border:1px solid oklch(0.88 0.055 25);color:oklch(0.62 0.21 25)',info:'background:oklch(0.950 0.040 178);border:1px solid oklch(0.900 0.072 178);color:oklch(0.480 0.096 178)'};
+  const ic={success:'✓',error:'✕',info:'ℹ'};
+  el.className='toast-in flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-full whitespace-nowrap';
+  el.style.cssText=(s[type]||s.info)+';box-shadow:var(--shadow-lg)';
+  el.innerHTML=`<span>${ic[type]||'•'}</span>${msg}`;
+  document.getElementById('toastContainer').appendChild(el);
+  setTimeout(()=>{el.classList.remove('toast-in');el.classList.add('toast-out');setTimeout(()=>el.remove(),300);},2500);
+}
+function vibrate(p){if(navigator.vibrate)navigator.vibrate(p);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
+
+/* ─── EVENTS ─────────────────────────────── */
+function initEvents() {
+  // Nav
+  document.querySelectorAll('.nav-tab').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));
+  document.getElementById('btnMenu').addEventListener('click',openMenu);
+  document.getElementById('overlay').addEventListener('click',closeAll);
+
+  // Barcode input
+  document.getElementById('barcodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')processScan(document.getElementById('barcodeInput').value.trim());});
+
+  // Camera
+  document.getElementById('btnCamera').addEventListener('click',startCamera);
+  document.getElementById('btnCameraClose').addEventListener('click',stopCamera);
+
+  // Paste
+  document.getElementById('btnPaste').addEventListener('click',()=>openSheet('pasteSheet'));
+  document.getElementById('btnPasteCancel').addEventListener('click',()=>closeSheet('pasteSheet'));
+  document.getElementById('btnPasteProcess').addEventListener('click',processBulkPaste);
+
+  // View all
+  document.getElementById('btnViewAll').addEventListener('click',()=>switchPage('pageHistory'));
+
+  // Scan sheet
+  document.getElementById('btnScanCancel').addEventListener('click',()=>closeSheet('scanSheet'));
+  document.getElementById('btnScanSave').addEventListener('click',saveScan);
+
+  // Scan tabs
+  document.querySelectorAll('.scan-tab').forEach(t=>t.addEventListener('click',()=>switchScanTab(t.dataset.tab)));
+
+  // Expiry pickers
+  document.getElementById('expiryTrigger').addEventListener('click',()=>openExpiryPicker('scan'));
+  document.getElementById('tmplExpiryTrigger').addEventListener('click',()=>openExpiryPicker('template'));
+  document.getElementById('editExpiryTrigger').addEventListener('click',()=>openExpiryPicker('edit'));
+  document.getElementById('btnExpiryCancel').addEventListener('click',()=>closeSheet('expirySheet'));
+  document.getElementById('btnExpiryConfirm').addEventListener('click',confirmExpiry);
+  document.getElementById('btnYearPrev').addEventListener('click',()=>{const years=[new Date().getFullYear()-1,new Date().getFullYear(),new Date().getFullYear()+1,new Date().getFullYear()+2];const i=years.indexOf(S.pickerYear);if(i>0){S.pickerYear=years[i-1];buildExpiryPicker();}});
+  document.getElementById('btnYearNext').addEventListener('click',()=>{const years=[new Date().getFullYear()-1,new Date().getFullYear(),new Date().getFullYear()+1,new Date().getFullYear()+2];const i=years.indexOf(S.pickerYear);if(i<years.length-1){S.pickerYear=years[i+1];buildExpiryPicker();}});
+
+  // Qty
+  document.getElementById('btnQtyMinus').addEventListener('click',()=>{const i=document.getElementById('inputQty');if(+i.value>1)i.value=+i.value-1;vibrate(10);});
+  document.getElementById('btnQtyPlus').addEventListener('click',()=>{const i=document.getElementById('inputQty');i.value=+i.value+1;vibrate(10);});
+  document.getElementById('btnEditQtyMinus').addEventListener('click',()=>{const i=document.getElementById('editQty');if(+i.value>1)i.value=+i.value-1;vibrate(10);});
+  document.getElementById('btnEditQtyPlus').addEventListener('click',()=>{const i=document.getElementById('editQty');i.value=+i.value+1;vibrate(10);});
+
+  // Remarks
+  ['optPending','optSold','optRemoved'].forEach(id=>document.getElementById(id).addEventListener('click',()=>setRemarks(document.getElementById(id).dataset.val)));
+  ['editOptPending','editOptSold','editOptRemoved'].forEach(id=>document.getElementById(id).addEventListener('click',()=>setEditStatus(document.getElementById(id).dataset.val)));
+  document.querySelectorAll('.tmpl-status-opt').forEach(b=>b.addEventListener('click',()=>setTmplStatus(b.dataset.val)));
+
+  // Supplier autocomplete — scan
+  document.getElementById('inputSupplier').addEventListener('input',e=>renderSupplierDropdown('inputSupplier','supplierDropdown',e.target.value));
+  document.getElementById('inputSupplier').addEventListener('blur',()=>setTimeout(()=>document.getElementById('supplierDropdown').style.display='none',200));
+
+  // Supplier autocomplete — template
+  document.getElementById('tmplSupplier').addEventListener('input',e=>renderSupplierDropdown('tmplSupplier','tmplSupplierDropdown',e.target.value));
+  document.getElementById('tmplSupplier').addEventListener('blur',()=>setTimeout(()=>document.getElementById('tmplSupplierDropdown').style.display='none',200));
+
+  // Supplier autocomplete — edit
+  document.getElementById('editSupplier').addEventListener('input',e=>renderSupplierDropdown('editSupplier','editSupplierDropdown',e.target.value));
+  document.getElementById('editSupplier').addEventListener('blur',()=>setTimeout(()=>document.getElementById('editSupplierDropdown').style.display='none',200));
+
+  // Template
+  document.getElementById('btnTemplate').addEventListener('click',openTemplate);
+  document.getElementById('btnTemplateCancel').addEventListener('click',()=>closeSheet('templateSheet'));
+  document.getElementById('btnTemplateApply').addEventListener('click',applyTemplate);
+  document.getElementById('btnTemplateClear').addEventListener('click',clearTemplate);
+
+  // Edit sheet
+  document.getElementById('btnEditCancel').addEventListener('click',()=>closeSheet('editSheet'));
+  document.getElementById('btnEditSave').addEventListener('click',saveEdit);
+  document.getElementById('btnEditDelete').addEventListener('click',()=>{
+    if(confirm('Delete this item?')){ deleteHistoryItem(S.editItemId); closeSheet('editSheet'); showToast('Item deleted','info'); }
+  });
+
+  // PIN
+  document.querySelectorAll('.pin-key[data-key]').forEach(b=>b.addEventListener('click',()=>pinKey(b.dataset.key)));
+  document.getElementById('pinDelete').addEventListener('click',pinDel);
+  document.getElementById('btnPinCancel').addEventListener('click',()=>{closeSheet('pinSheet');S.pinCallback=null;S.pinBuffer='';});
+
+  // Search
+  const si=document.getElementById('searchInput');
+  si.addEventListener('input',()=>{S.searchQuery=si.value;document.getElementById('btnSearchClear').style.display=S.searchQuery?'':'none';renderHistory();});
+  document.getElementById('btnSearchClear').addEventListener('click',()=>{si.value='';S.searchQuery='';document.getElementById('btnSearchClear').style.display='none';renderHistory();});
+
+  // Filter chips
+  document.getElementById('filterChips').addEventListener('click',e=>{
+    if(!e.target.classList.contains('chip'))return;
+    document.querySelectorAll('.chip').forEach(c=>{c.className='chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-white text-slate-500 border border-slate-200';});
+    e.target.className='chip flex-shrink-0 text-2xs font-bold tracking-wide px-3 py-1.5 rounded-full bg-teal-500 text-white border border-teal-500';
+    S.filter=e.target.dataset.filter; vibrate(10); renderHistory();
+  });
+
+  // Export
+  document.getElementById('btnExportTSV').addEventListener('click',exportTSV);
+  document.getElementById('btnExportCSV').addEventListener('click',exportCSV);
+  document.getElementById('btnExportJSON').addEventListener('click',exportJSON);
+  document.getElementById('menuExportTSV').addEventListener('click',()=>{closeAll();exportTSV();});
+  document.getElementById('menuExportCSV').addEventListener('click',()=>{closeAll();exportCSV();});
+  document.getElementById('menuExportJSON').addEventListener('click',()=>{closeAll();exportJSON();});
+
+  // Menu
+  document.getElementById('menuUpload').addEventListener('click',()=>{closeAll();requirePIN('Upload Master CSV',()=>{buildMasterSupplierList();openSheet('settingsSheet');});});
+  document.getElementById('menuClearHistory').addEventListener('click',()=>{closeAll();requirePIN('Clear all history',async()=>{if(confirm('Delete ALL history?')){await dbClear('history');S.history=[];updateStats();renderRecent();renderHistory();renderDashboard();showToast('History cleared','info');}});});
+  document.getElementById('menuRestoreJSON').addEventListener('click',()=>{closeAll();requirePIN('Restore backup',()=>document.getElementById('restoreInput').click());});
+  document.getElementById('restoreInput').addEventListener('change',async e=>{
+    const f=e.target.files[0];if(!f)return;
+    try{const t=await f.text(),b=JSON.parse(t);if(!b.history)throw new Error();
+      await dbClear('history');for(const it of b.history)await dbPut('history',it);
+      if(b.master){await dbClear('master');for(const it of b.master)await dbPut('master',it);S.master=b.master;buildMasterIndex();}
+      await loadHistory();showToast(`Restored ${b.history.length} items`,'success');
+    }catch{showToast('Invalid backup','error');}e.target.value='';
+  });
+
+  // Settings sheet
+  document.getElementById('btnSettingsCancel').addEventListener('click',()=>closeSheet('settingsSheet'));
+  document.getElementById('fileDrop').addEventListener('click',()=>document.getElementById('fileInput').click());
+  document.getElementById('fileInput').addEventListener('change',async e=>{
+    const f=e.target.files[0];if(!f)return;
+    const text=await f.text(),prods=await parseMasterCSV(text);
+    if(!prods){showToast('Cannot detect columns','error');return;}
+    S.uploadData=prods;
+    document.getElementById('uploadPreview').innerHTML=`<strong>${prods.length}</strong> products found${prods.some(p=>p.supplier)?` · ${[...new Set(prods.filter(p=>p.supplier).map(p=>p.supplier))].length} suppliers`:''}`;
+    document.getElementById('uploadPreview').style.display='';
+    document.getElementById('btnSettingsUpload').disabled=false;
+    document.getElementById('btnSettingsUpload').classList.remove('opacity-40','cursor-not-allowed');
+    document.getElementById('fileDropText').textContent=f.name;
+  });
+  ['modeReplace','modeAppend','modeTemplate'].forEach(id=>{
+    document.getElementById(id).addEventListener('click',()=>{
+      S.uploadMode=id.replace('mode','').toLowerCase();
+      ['modeReplace','modeAppend','modeTemplate'].forEach(bid=>{
+        document.getElementById(bid).className=`press h-10 rounded-xl text-xs font-bold border ${bid===id?'bg-teal-500 text-white border-teal-500':'border-slate-200 bg-white text-slate-500'}`;
+      });
+    });
+  });
+  document.getElementById('btnSettingsUpload').addEventListener('click',async()=>{
+    if(!S.uploadData)return;
+    if(S.uploadMode==='replace'){await dbClear('master');S.master=[];}
+    for(const p of S.uploadData)await dbPut('master',p);
+    S.master=await dbGetAll('master');buildMasterIndex();
+    closeSheet('settingsSheet');showToast(`${S.uploadData.length} products uploaded`,'success');
+    S.uploadData=null;
+    document.getElementById('btnSettingsUpload').disabled=true;
+    document.getElementById('btnSettingsUpload').classList.add('opacity-40','cursor-not-allowed');
+    document.getElementById('uploadPreview').style.display='none';
+    document.getElementById('fileDropText').textContent='Tap to choose CSV / TSV file';
+  });
+}
+
+function buildMasterSupplierList() {
+  const tags = document.getElementById('masterSupplierTags');
+  const list = document.getElementById('masterSupplierList');
+  if (S.supplierSet.size === 0) { list.style.display='none'; return; }
+  list.style.display='';
+  tags.innerHTML = [...S.supplierSet].map(s=>`<span class="text-2xs font-bold bg-violet-50 border border-violet-100 text-violet-600 px-2.5 py-1 rounded-full">${esc(s)}</span>`).join('');
+}
+
+/* ─── DEMO DATA ─────────────────────────── */
+async function loadDemo() {
+  if (S.history.length>0) return;
+  const demos=[
+    {d:'EDYST TAB 20MG 4S',g:'6297001031292',e:'2026-01',b:'BG24025A',q:2,r:'REMOVED',s:'PharmaCorp Gulf'},
+    {d:'HYALO4 SKIN CREAM 25GM',g:'8033661802548',e:'2026-01',b:'G04620',q:2,r:'',s:'Fidia Farmaceutici'},
+    {d:'SNAFI 20MG TABLETS 4S',g:'965013700267',e:'2026-01',b:'1144996',q:3,r:'SOLD',s:'Tabuk Pharmaceuticals'},
+    {d:'EUCARBON TABLETS 100S',g:'80336618025',e:'2026-02',b:'3G5W',q:1,r:'',s:'Trenka'},
+    {d:'SONGHA NIGHT 30 CAPS',g:'7610939003428',e:'2026-02',b:'R0078701',q:2,r:'',s:'Pharmaton'},
+    {d:'ACCUCHECK GUIDE STRIPS 50S',g:'5903163603246',e:'2026-03',b:'124040910',q:1,r:'',s:'Roche'},
+    {d:'VOLTAREN TOPICAL GEL 100GM',g:'6291109120759',e:'2026-06',b:'D73A',q:4,r:'',s:'GSK'},
+    {d:'BIONIKA CARDIOLL 5G SACHETS',g:'5319991382398',e:'2026-04',b:'123924',q:2,r:'SOLD',s:'Bionika Pharma'},
+    {d:'QUESTD VITAMIN D3 5000IU 60S',g:'688591124505',e:'2026-01',b:'BG24025A',q:1,r:'SOLD',s:'Quest Pharmaceuticals'},
+    {d:'ZELLER REDORMIN FORTE 30S',g:'7640144122751',e:'2026-05',b:'231001',q:3,r:'',s:'Zeller AG'},
+  ];
+  for (const x of demos) {
+    const g=toG14(x.g);
+    await saveItem({id:crypto.randomUUID(),gtin14:g,gtin13:toG13(g),barcode:toG13(g),rms:x.g,description:x.d,supplier:x.s,quantity:x.q,expiry:x.e,batch:x.b,locationNo:CFG.storeNo,locationName:CFG.storeName,returnStatus:x.r,matchType:'EXACT',scanTimestamp:new Date().toISOString(),editTimestamp:null});
+    S.supplierSet.add(x.s);
+  }
+}
+
+/* ─── SW ─────────────────────────────────── */
+function initSW(){if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});}
+
+/* ─── INIT ──────────────────────────────── */
+async function init() {
+  try {
+    await initDB();
+    S.master = await dbGetAll('master');
+    buildMasterIndex();
+    await loadHistory();
+    await loadDemo();
+    initEvents();
+    initSW();
+    showToast('PharmaScan ready · Boots Oasis','info');
+  } catch(err) { console.error(err); showToast('Startup error','error'); }
+}
+init();
+</script>
+</body>
+</html>
